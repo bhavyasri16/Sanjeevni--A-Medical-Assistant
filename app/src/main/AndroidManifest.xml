@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bachelorshelter.tanvir.medicaladviser">
+    package="com.finalproject.it.sanjeevni">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".app.AppController"
+        android:name="com.finalproject.it.sanjeevni.app.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/abc"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/abc"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.loginActivity"></activity>
+        <activity android:name="com.finalproject.it.sanjeevni.activities.loginActivity"></activity>
         <activity
-            android:name=".activities.SplashActivity"
+            android:name="com.finalproject.it.sanjeevni.activities.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,22 +24,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.WelcomeActivity"
+            android:name="com.finalproject.it.sanjeevni.activities.WelcomeActivity"
             android:theme="@style/HiddenTitleTheme" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.finalproject.it.sanjeevni.activities.MainActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".activities.SearchActivity"
+            android:name="com.finalproject.it.sanjeevni.activities.SearchActivity"
             android:theme="@style/HiddenTitleTheme" />
-        <activity android:name=".activities.SearchResultActivity" />
-        <activity android:name=".activities.AddReviewActivity" />
+        <activity android:name="com.finalproject.it.sanjeevni.activities.SearchResultActivity" />
+        <activity android:name="com.finalproject.it.sanjeevni.activities.AddReviewActivity" />
         <activity
-            android:name=".activities.TipsFullActivity"
+            android:name="com.finalproject.it.sanjeevni.activities.TipsFullActivity"
             android:label="@string/title_activity_test"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.DiseaseFullActivity"
+            android:name="com.finalproject.it.sanjeevni.activities.DiseaseFullActivity"
             android:label="@string/title_activity_disease_full"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
