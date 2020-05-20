@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#880e4f</color>
+    <color name="colorPrimaryDark">#560027</color>
+    <color name="colorPrimaryLight">#bc477b</color>
+    <color name="colorAccent">#560027</color>
+    <color name="colorAccent1">#FF4081</color>
+    <color name="splash_bg_color">#fce4ec</color>
+
+
+    <!-- dots inactive colors -->
+    <color name="dot_dark_screen1">#560027</color>
+    <color name="dot_dark_screen2">#560027</color>
+    <color name="dot_dark_screen3">#560027</color>
+    <color name="dot_dark_screen4">#560027</color>
+
+    <!-- dots active colors -->
+    <color name="dot_light_screen1">#bc477b</color>
+    <color name="dot_light_screen2">#bc477b</color>
+    <color name="dot_light_screen3">#bc477b</color>
+    <color name="dot_light_screen4">#bc477b</color>
+
+    <array name="array_dot_active">
+        <item>@color/dot_light_screen1</item>
+        <item>@color/dot_light_screen2</item>
+        <item>@color/dot_light_screen3</item>
+        <item>@color/dot_light_screen4</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/dot_dark_screen1</item>
+        <item>@color/dot_dark_screen2</item>
+        <item>@color/dot_dark_screen3</item>
+        <item>@color/dot_dark_screen4</item>
+    </array>
+
+    <color name="colorDivider">#e0e0e0</color>
+
+    <!-- Google Logo -->
+    <color name="google_blue">#4285F4</color>
+    <color name="google_green">#34A853</color>
+    <color name="google_yellow">#FBBC05</color>
+    <color name="google_red">#EA4335</color>
+    <color name="gray">#999999</color>
+
+</resources>
