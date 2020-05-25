@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.activities.ui.login.LoginActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -43,7 +44,7 @@ public class WelcomeActivity extends AppCompatActivity {
         getStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomeActivity.this,loginActivity.class));
+                startActivity(new Intent(getBaseContext(),LoginActivity.class));
                 finish();
             }
         });
