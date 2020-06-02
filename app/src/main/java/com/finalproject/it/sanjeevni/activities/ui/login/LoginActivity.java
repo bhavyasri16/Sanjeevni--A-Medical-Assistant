@@ -3,6 +3,7 @@ package com.finalproject.it.sanjeevni.activities.ui.login;
 import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -20,7 +21,7 @@ import android.widget.Toast;
 
 
 import com.finalproject.it.sanjeevni.R;
-import com.finalproject.it.sanjeevni.activities.ui.login.*;
+import com.finalproject.it.sanjeevni.activities.RegisterActivity;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = (EditText) findViewById(R.id.username);
         final EditText passwordEditText = (EditText) findViewById(R.id.password);
         final Button loginButton = (Button) findViewById(R.id.login);
+        final Button register_Button = (Button) findViewById(R.id.register_button);
+        final Button forgotPasswordButton = (Button) findViewById(R.id.forgot_password);
         final ProgressBar loadingProgressBar = (ProgressBar) findViewById(R.id.loading);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -112,6 +115,14 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+            }
+        });
+
+        register_Button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+
             }
         });
     }

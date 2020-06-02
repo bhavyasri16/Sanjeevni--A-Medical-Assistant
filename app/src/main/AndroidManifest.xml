@@ -13,9 +13,11 @@
         android:roundIcon="@mipmap/abc"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.RegisterActivity"
+            android:label="Time to get Registered!"/>
         <activity
             android:name=".activities.ui.login.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/SplashTheme">
