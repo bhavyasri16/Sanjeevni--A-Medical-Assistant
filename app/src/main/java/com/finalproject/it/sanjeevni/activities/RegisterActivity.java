@@ -1,9 +1,12 @@
 package com.finalproject.it.sanjeevni.activities;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.activities.ui.login.LoginActivity;
+import com.finalproject.it.sanjeevni.fragment.Confirm_dr_dialog;
 
 import android.util.Patterns;
 import android.view.View;
@@ -20,12 +23,12 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements Confirm_dr_dialog.Confirm_dr_dialogListener {
 
     EditText firstname, lastname, emailid, phone, password, confirm_password, dob;
     RadioGroup gender;
     RadioButton sel_gen;
-    Button registerButton;
+    Button registerButton,dr_register,back_button;
     Date date_of_birth;
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{5,}" + "$");
     private static final Pattern PHONE_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{10,}" + "$");
@@ -43,7 +46,8 @@ public class RegisterActivity extends AppCompatActivity {
         gender =(RadioGroup) findViewById(R.id.gender_radio);
         sel_gen=(RadioButton) findViewById(gender.getCheckedRadioButtonId());
         registerButton = (Button) findViewById(R.id.register_button);
-
+        dr_register=(Button) findViewById(R.id.register_dr_button);
+        back_button=(Button) findViewById(R.id.back_button);
 
         dob= (EditText) findViewById(R.id.dob);
         final Calendar myCalendar = Calendar.getInstance();
@@ -79,9 +83,33 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, "done", Toast.LENGTH_SHORT).show();
             }
         });
+
+        this.dr_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!validateFirstname() | !validateLastname() | !validateEmail() | !validatePhone() | !validateDate() | !validatePassword() | !validateConfirmPassword())
+                {
+                    return;
+                }
+                openDialog();
+            }
+        });
+        this.back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(), LoginActivity.class));
+                finish();
+            }
+        });
     }
+    public void openDialog(){
+        Confirm_dr_dialog confirmdialog = new Confirm_dr_dialog();
+        confirmdialog.show(getSupportFragmentManager(),"example");
+    }
+
+
     private void updateLabel( EditText dob, Calendar myCal) {
-        String myFormat = "MM/dd/yyyy"; //In which you need put here
+        String myFormat = "mm/dd/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         dob.setText(sdf.format(myCal.getTime()));
     }

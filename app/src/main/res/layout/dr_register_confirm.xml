@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingBottom="8dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/title_bar"
+        android:text="@string/confirmation"
+        android:textSize="23dp"
+        android:padding="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="#FFFFFF"
+        />
+    <TextView
+        android:id="@+id/confirm_request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="16dp"
+        android:text="@string/confirm__request_message"
+        android:layout_below="@+id/title_bar"/>
+   <Button
+        android:id="@+id/yes_btn"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:text="Yes"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/confirm_request"
+        android:layout_toLeftOf="@+id/no_btn"
+        />
+    <Button
+        android:id="@+id/no_btn"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:text="No"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/confirm_request"
+        android:layout_alignParentRight="true"
+        />
+
+</RelativeLayout>

@@ -134,7 +134,7 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_password">Password must be > 5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
 
@@ -145,4 +145,6 @@
     <string name="confirmerror">Password does not match</string>
     <string name="gender">Gender</string>
 
+    <string name="confirmation"><b>Confirmation</b></string>
+    <string name="confirm__request_message">Are you sure you want to Register as a Doctor/Hospital ?</string>
 </resources>
