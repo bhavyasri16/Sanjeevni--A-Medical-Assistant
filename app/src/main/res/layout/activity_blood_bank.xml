@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bb_bg2"
+    tools:context=".activities.bloodBank.BloodBank">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="348dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="150px"
+        android:layout_marginTop="100px"
+        android:layout_marginRight="50px"
+        android:gravity="center"
+        android:text="Blood"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:typeface="serif" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="311dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200px"
+        android:gravity="center"
+        android:text="BANK"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:typeface="serif" />
+
+    <Button
+        android:id="@+id/btnRegAs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80sp"
+        android:layout_marginTop="50sp"
+        android:layout_marginRight="20sp"
+        android:background="@color/colorPrimaryDark"
+        android:text="Register as a Donor"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <Button
+        android:id="@+id/btnDonate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80sp"
+        android:layout_marginTop="50sp"
+        android:layout_marginRight="20sp"
+        android:background="@color/colorPrimaryDark"
+        android:text="Search for Donor"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+</LinearLayout>

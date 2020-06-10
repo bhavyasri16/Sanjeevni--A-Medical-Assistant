@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryLight"
+    tools:context=".activities.bloodBank.bbDonate">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginRight="10sp"
+        android:gravity="center"
+        android:text="Fill in the following details to find suitable donors for you"
+        android:textColor="@android:color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:typeface="serif" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/inputName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="25sp"
+        android:layout_marginRight="15sp"
+        android:gravity="center">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="Name(of the person to be contacted)"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColorHint="@color/colorPrimary" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/inputContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginRight="15sp"
+        android:gravity="center">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/etContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="Contact No.(currently available)"
+            android:inputType="number"
+            android:textColorHint="@color/colorPrimary" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/searchBgroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginRight="15sp"
+        android:gravity="center">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/etSearchBGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="Blood group you are searching for?"
+            android:singleLine="true"
+            android:textColorHint="@color/colorPrimary" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/searchCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginRight="15sp"
+        android:gravity="center">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/etSearchCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="City you are in?"
+            android:singleLine="true"
+            android:textColorHint="@color/colorPrimary" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/inputIDProof"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginRight="15sp"
+        android:gravity="center"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@color/google_yellow">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/etIDProof"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="ID Proof(Aadhaar No.)"
+            android:inputType="number"
+            android:maxLength="12"
+            android:textColorHint="@color/colorPrimary" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20sp"
+        android:fontFamily="sans-serif"
+        android:text="Search"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="serif" />
+
+</LinearLayout>
