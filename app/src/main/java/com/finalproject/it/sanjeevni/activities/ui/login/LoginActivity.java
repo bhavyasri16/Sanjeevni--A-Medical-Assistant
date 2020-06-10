@@ -21,10 +21,10 @@ import android.widget.Toast;
 
 
 import com.finalproject.it.sanjeevni.R;
-import com.finalproject.it.sanjeevni.activities.RegisterActivity;
+import com.finalproject.it.sanjeevni.fragment.Reset_password;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements Reset_password.Reset_passwordListener{
 
     private LoginViewModel loginViewModel;
 
@@ -41,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         final Button register_Button = (Button) findViewById(R.id.register_button);
         final Button forgotPasswordButton = (Button) findViewById(R.id.forgot_password);
         final ProgressBar loadingProgressBar = (ProgressBar) findViewById(R.id.loading);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -109,6 +111,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,9 +126,21 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-
             }
         });
+
+        forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
+    }
+
+
+    public void openDialog(){
+        Reset_password confirmdialog = new Reset_password();
+        confirmdialog.show(getSupportFragmentManager(),"example");
     }
 
     private void updateUiWithUser(LoggedInUserView model) {

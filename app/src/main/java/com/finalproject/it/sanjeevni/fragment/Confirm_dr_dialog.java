@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.Gravity;
@@ -14,11 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.finalproject.it.sanjeevni.R;
-import com.finalproject.it.sanjeevni.activities.RegisterActivity;
 
 public class Confirm_dr_dialog extends AppCompatDialogFragment {
 
-    private TextView text;
     private Confirm_dr_dialogListener listener;
 
     @Override

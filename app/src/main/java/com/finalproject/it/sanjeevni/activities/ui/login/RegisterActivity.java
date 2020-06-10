@@ -1,11 +1,9 @@
-package com.finalproject.it.sanjeevni.activities;
+package com.finalproject.it.sanjeevni.activities.ui.login;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.finalproject.it.sanjeevni.R;
-import com.finalproject.it.sanjeevni.activities.ui.login.LoginActivity;
 import com.finalproject.it.sanjeevni.fragment.Confirm_dr_dialog;
 
 import android.util.Patterns;
@@ -28,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
     EditText firstname, lastname, emailid, phone, password, confirm_password, dob;
     RadioGroup gender;
     RadioButton sel_gen;
-    Button registerButton,dr_register,back_button;
+    Button registerButton,dr_register;
     Date date_of_birth;
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{5,}" + "$");
     private static final Pattern PHONE_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{10,}" + "$");
@@ -47,7 +45,6 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
         sel_gen=(RadioButton) findViewById(gender.getCheckedRadioButtonId());
         registerButton = (Button) findViewById(R.id.register_button);
         dr_register=(Button) findViewById(R.id.register_dr_button);
-        back_button=(Button) findViewById(R.id.back_button);
 
         dob= (EditText) findViewById(R.id.dob);
         final Calendar myCalendar = Calendar.getInstance();
@@ -73,6 +70,8 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
             }
 
         });
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         this.registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,13 +91,6 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
                     return;
                 }
                 openDialog();
-            }
-        });
-        this.back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getBaseContext(), LoginActivity.class));
-                finish();
             }
         });
     }

@@ -147,4 +147,5 @@
 
     <string name="confirmation"><b>Confirmation</b></string>
     <string name="confirm__request_message">Are you sure you want to Register as a Doctor/Hospital ?</string>
+    <string name="reset_password"><b>Reset Password</b></string>
 </resources>
