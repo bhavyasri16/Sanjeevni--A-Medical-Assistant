@@ -71,6 +71,21 @@
         app:layout_constraintTop_toBottomOf="@+id/email_id" />
 
     <EditText
+        android:id="@+id/city"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="24dp"
+
+        android:hint="Present City"
+        android:inputType="textAutoComplete"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone_no" />
+
+    <EditText
         android:id="@+id/dob"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,7 +96,7 @@
         android:focusable="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_no"
+        app:layout_constraintTop_toBottomOf="@+id/city"
         />
 
     <TextView
@@ -164,8 +179,8 @@
         android:layout_marginBottom="64dp"
         android:focusable="true"
         android:text="Register"
-        android:textColor="@color/splash_bg_color"
-        android:textSize="15dp"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -176,14 +191,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="48dp"
         android:focusable="true"
         android:text="Register as a Doctor"
         android:textColor="@color/colorPrimaryDark"
         android:background="#FFFFFF"
-        android:textSize="12dp"
-        android:minHeight="2dp"
+        android:textSize="14dp"
+        android:minHeight="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

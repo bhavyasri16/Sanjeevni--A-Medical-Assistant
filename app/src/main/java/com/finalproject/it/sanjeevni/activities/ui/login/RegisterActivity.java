@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity implements Confirm_dr_dialog.Confirm_dr_dialogListener {
 
-    EditText firstname, lastname, emailid, phone, password, confirm_password, dob;
+    EditText firstname, lastname, emailid, phone, password, confirm_password, dob, city;
     RadioGroup gender;
     RadioButton sel_gen;
     Button registerButton,dr_register;
@@ -45,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
         sel_gen=(RadioButton) findViewById(gender.getCheckedRadioButtonId());
         registerButton = (Button) findViewById(R.id.register_button);
         dr_register=(Button) findViewById(R.id.register_dr_button);
+        city = (EditText) findViewById(R.id.city);
 
         dob= (EditText) findViewById(R.id.dob);
         final Calendar myCalendar = Calendar.getInstance();
@@ -71,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
 
         });
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,13 +126,26 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
         String usernameInput = lastname.getEditableText().toString().trim();
         String[] arr= usernameInput.split(" ");
         if (usernameInput.isEmpty()) {
-            lastname.setError("Field can't be empty");
-            return false;
+            lastname.setError(null);
+            return true;
         } else if (arr.length>1) {
             lastname.setError("Only one word required");
             return false;
         } else {
             lastname.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateCity() {
+        String cityname = city.getEditableText().toString().trim();
+        String[] arr= cityname.split(" ");
+        if (cityname.isEmpty()) {
+            city.setError(null);
+            return true;
+        }
+        else {
+            city.setError(null);
             return true;
         }
     }
