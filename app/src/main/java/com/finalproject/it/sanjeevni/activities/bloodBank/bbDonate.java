@@ -1,9 +1,11 @@
 package com.finalproject.it.sanjeevni.activities.bloodBank;
 
+import android.content.Context;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -30,12 +32,17 @@ public class bbDonate extends AppCompatActivity {
         getSupportActionBar().setTitle("Blood Bank");
         getSupportActionBar().setSubtitle("Search donor...");
 
+        inputName.getEditText().requestFocus();
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(inputName.getEditText(), InputMethodManager.SHOW_IMPLICIT);
+
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 validateID();
+                validateContact();
                 if(!validateName() | !validateContact() | !validateBGroup() | !validateCity() | !validateID()){
-                    Toast.makeText(bbDonate.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(bbDonate.this, "Please fill all the fields as required!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -50,9 +57,14 @@ public class bbDonate extends AppCompatActivity {
 
     private boolean validateContact(){
         String contact = inputContact.getEditText().getText().toString().trim();
-        if(contact.length() == 0)
+        if(contact.length()<10) {
+            inputContact.setError("*A 10-digit number required!");
             return false;
-        return true;
+        }
+        else{
+            inputContact.setError("");
+            return true;
+        }
     }
 
     private boolean validateBGroup(){

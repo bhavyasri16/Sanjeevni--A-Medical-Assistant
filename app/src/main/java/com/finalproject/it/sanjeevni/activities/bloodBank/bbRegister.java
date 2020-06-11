@@ -1,15 +1,18 @@
 package com.finalproject.it.sanjeevni.activities.bloodBank;
 
+import android.content.Context;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
 
 import com.finalproject.it.sanjeevni.R;
 
@@ -45,13 +48,16 @@ public class bbRegister extends AppCompatActivity {
         btnReg.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
 
         etDisease.setVisibility(View.INVISIBLE);
+        inputBGroup.getEditText().requestFocus();
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(inputBGroup.getEditText(), InputMethodManager.SHOW_IMPLICIT);
 
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 validateID();
                 if(!validateID() || !validateBGroup())
-                    Toast.makeText(bbRegister.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(bbRegister.this, "Please fill all the fields as required!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -88,6 +94,7 @@ public class bbRegister extends AppCompatActivity {
             case R.id.rbYes:
                 if (checked) {
                     etDisease.setVisibility(View.VISIBLE);
+                    etDisease.requestFocus();
                 }
                     break;
         }

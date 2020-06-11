@@ -14,14 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.bloodBank.bbDonate"
-            android:parentActivityName=".activities.bloodBank.BloodBank">
+            android:parentActivityName=".activities.bloodBank.BloodBank"
+            android:windowSoftInputMode="stateVisible">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.bloodBank.BloodBank"
                 />
         </activity>
         <activity android:name=".activities.bloodBank.bbRegister"
-            android:parentActivityName=".activities.bloodBank.BloodBank">
+            android:parentActivityName=".activities.bloodBank.BloodBank"
+            android:windowSoftInputMode="stateVisible">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.bloodBank.BloodBank"
