@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        firstname = (EditText) findViewById(R.id.first_name);
+        firstname = findViewById(R.id.first_name);
         lastname = (EditText) findViewById(R.id.last_name);
         emailid = (EditText) findViewById(R.id.email_id);
         phone = (EditText) findViewById(R.id.phone_no);
