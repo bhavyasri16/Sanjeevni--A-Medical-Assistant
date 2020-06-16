@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
@@ -130,7 +130,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/male_check"
             android:text="Male"
-            android:checked="true"
             />
         <RadioButton
             android:layout_width="wrap_content"
@@ -180,12 +179,14 @@
         android:focusable="true"
         android:text="Register"
         android:textColor="#FFFFFF"
+        android:background="@drawable/mybutton"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirm_password"
         app:layout_constraintVertical_bias="0.2" />
+
     <Button
         android:id="@+id/register_dr_button"
         android:layout_width="match_parent"
@@ -193,12 +194,12 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="48dp"
+        android:background="@android:color/transparent"
         android:focusable="true"
+        android:minHeight="7dp"
         android:text="Register as a Doctor"
         android:textColor="@color/colorPrimaryDark"
-        android:background="#FFFFFF"
         android:textSize="14dp"
-        android:minHeight="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -207,17 +208,18 @@
 
     <ProgressBar
         android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="161dp"
         android:layout_gravity="center"
         android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="64dp"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/password"
-        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintEnd_toEndOf="@+id/confirm_password"
+        app:layout_constraintHorizontal_bias="0.587"
+        app:layout_constraintStart_toStartOf="@+id/confirm_password"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
-</android.support.constraint.ConstraintLayout>
+        app:layout_constraintVertical_bias="0.433" />
+</androidx.constraintlayout.widget.ConstraintLayout>

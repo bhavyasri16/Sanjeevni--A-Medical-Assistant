@@ -1,155 +1,155 @@
 package com.finalproject.it.sanjeevni.activities.ui.login;
 
-import android.app.Activity;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.activities.WelcomeActivity;
+import com.finalproject.it.sanjeevni.fragment.Reset_password;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
+import android.util.Patterns;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.regex.Pattern;
 
-import com.finalproject.it.sanjeevni.R;
-import com.finalproject.it.sanjeevni.fragment.Reset_password;
+public class LoginActivity extends AppCompatActivity {
 
-
-public class LoginActivity extends AppCompatActivity implements Reset_password.Reset_passwordListener{
-
-    private LoginViewModel loginViewModel;
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{5,}" + "$");
+    private FirebaseAuth mAuth;
+    private Button loginButton,register_Button,forgotPasswordButton;
+    private EditText usern,pass;
+    private ProgressBar loadingProgressBar;
+    private Drawable thisdra;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
-                .get(LoginViewModel.class);
-
-        final EditText usernameEditText = (EditText) findViewById(R.id.username);
-        final EditText passwordEditText = (EditText) findViewById(R.id.password);
-        final Button loginButton = (Button) findViewById(R.id.login);
-        final Button register_Button = (Button) findViewById(R.id.register_button);
-        final Button forgotPasswordButton = (Button) findViewById(R.id.forgot_password);
-        final ProgressBar loadingProgressBar = (ProgressBar) findViewById(R.id.loading);
-
+        usern =  findViewById(R.id.username);
+        pass = findViewById(R.id.password);
+        loginButton = findViewById(R.id.login);
+        register_Button = findViewById(R.id.register_button);
+        forgotPasswordButton = findViewById(R.id.forgot_password);
+        mAuth = FirebaseAuth.getInstance();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
-            @Override
-            public void onChanged(@Nullable LoginFormState loginFormState) {
-                if (loginFormState == null) {
-                    return;
-                }
-                loginButton.setEnabled(loginFormState.isDataValid());
-                if (loginFormState.getUsernameError() != null) {
-                    usernameEditText.setError(getString(loginFormState.getUsernameError()));
-                }
-                if (loginFormState.getPasswordError() != null) {
-                    passwordEditText.setError(getString(loginFormState.getPasswordError()));
-                }
-            }
-        });
-
-        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
-            @Override
-            public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
-                    return;
-                }
-                loadingProgressBar.setVisibility(View.GONE);
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
-                }
-                setResult(Activity.RESULT_OK);
-
-                //Complete and destroy login activity once successful
-                finish();
-            }
-        });
-
-        TextWatcher afterTextChangedListener = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // ignore
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // ignore
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
-            }
-        };
-        usernameEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginViewModel.login(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString());
-                }
-                return false;
-            }
-        });
-
-
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+            public void onClick(View view) {
+                if( !validateEmail() | !validatePassword())
+                    return;
+                //loadingProgressBar.setVisibility(View.VISIBLE);
+                mAuth.signInWithEmailAndPassword(usern.getEditableText().toString().trim(),
+                        pass.getEditableText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful())
+                        {
+                            Toast.makeText(getBaseContext(),"Login Successfull !",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getBaseContext(), WelcomeActivity.class));
+                        }
+                        else
+                        {
+                            Toast.makeText(getBaseContext(), "Invalid Email or Password.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
             }
         });
-
         register_Button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                startActivity(new Intent(getBaseContext(), RegisterActivity.class));
             }
         });
 
         forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog();
+               // openDialog();
+
+                final EditText resetMail = new EditText((v.getContext()));
+                resetMail.setHint("Registered Email ID");
+                AlertDialog.Builder passresetDialog = new AlertDialog.Builder(v.getContext());
+                passresetDialog.setTitle("Reset Password ?");
+                passresetDialog.setMessage("Enter Your Email To Receive Reset Link.");
+                passresetDialog.setView(resetMail);
+
+                passresetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String mail = resetMail.getText().toString().trim();
+                        mAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getBaseContext(),"Password Link Sent To Your Email.",Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getBaseContext(),"Reset Link Not Sent : "+e.getMessage(),Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                passresetDialog.create().show();
             }
         });
     }
 
-
-    public void openDialog(){
+    /*public void openDialog(){
         Reset_password confirmdialog = new Reset_password();
         confirmdialog.show(getSupportFragmentManager(),"example");
+    }*/
+
+    private boolean validateEmail() {
+        String emailInput = usern.getEditableText().toString().trim();
+        if (emailInput.isEmpty()) {
+            usern.setError("Field can't be empty");
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+            usern.setError("Please enter a valid email address");
+            return false;
+        } else {
+            usern.setError(null);
+            return true;
+        }
     }
 
-    private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+    private boolean validatePassword() {
+        String passwordInput = pass.getEditableText().toString().trim();
+        if (passwordInput.isEmpty()) {
+            pass.setError("Field can't be empty");
+            return false;
+        } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
+            pass.setError("Min. 5 characters required(No Spaces Allowed)");
+            return false;
+        } else {
+            pass.setError(null);
+            return true;
+        }
     }
 
-    private void showLoginFailed(@StringRes Integer errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
-    }
 }

@@ -14,7 +14,7 @@
     <string name="get_started">Get Started</string>
     <string name="log_in">Log In</string>
     <string name="title_activity_main2">Main2Activity</string>
-    <string name="register_button"><u>Register</u></string>
+    <string name="register_button"><u>New User? Register</u></string>
     <string name="forward_password_button"><u>Forgot Password?</u></string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

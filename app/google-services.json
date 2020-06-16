@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "190024627012",
+    "firebase_url": "https://sanjeevni-bns123.firebaseio.com",
+    "project_id": "sanjeevni-bns123",
+    "storage_bucket": "sanjeevni-bns123.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190024627012:android:1aace5e541ab6ad47a9d11",
+        "android_client_info": {
+          "package_name": "com.finalproject.it.sanjeevni"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190024627012-mu8g8bk839ldi46uf0r8ocbohhn49uki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAObwaGc6O27gNr9goEWeE1hxK-WAJyPg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190024627012-mu8g8bk839ldi46uf0r8ocbohhn49uki.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
