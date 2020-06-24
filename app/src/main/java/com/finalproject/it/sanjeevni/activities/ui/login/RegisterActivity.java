@@ -9,56 +9,56 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import com.finalproject.it.sanjeevni.R;
-import com.finalproject.it.sanjeevni.activities.data.model.UserDetails;
 import com.finalproject.it.sanjeevni.fragment.Confirm_dr_dialog;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 //import com.google.firebase.auth.FirebaseAuthRegistrar;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 
-public class RegisterActivity extends AppCompatActivity implements Confirm_dr_dialog.Confirm_dr_dialogListener {
+public class RegisterActivity extends AppCompatActivity {
 
-    EditText firstname, lastname, emailid, phone, password, confirm_password, dob, city;
-    RadioGroup gender;
-    RadioButton sel_gen;
-    Button registerButton,dr_register;
+    private EditText firstname, lastname, emailid, phone, password, confirm_password, dob;
+    private TextView statetext,citytext;
+    private RadioGroup gender;
+    private RadioButton sel_gen;
+    private Button registerButton,dr_register;
+    private Spinner state_spinner,city_spinner;
+    private ArrayAdapter<State> stateArrayAdapter;
+    private ArrayAdapter<City> cityArrayAdapter;
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{5,}" + "$");
     private static final Pattern PHONE_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{10,}" + "$");
     private FirebaseAuth mAuth;
     private ProgressBar loadingProgressBar;
     private FirebaseFirestore fstore;
-    private String userID;
+    private String userID,stateSelected,citySelected;
+    private StateCity_List scl= new StateCity_List();
+    private int stateID=0,cityID=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +73,43 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
         password =  findViewById(R.id.create_password);
         confirm_password =  findViewById(R.id.confirm_password);
         gender =findViewById(R.id.gender_radio);
+        statetext=findViewById(R.id.state_text);
+        citytext=findViewById(R.id.citytext);
 
         registerButton = findViewById(R.id.register_button);
         dr_register= findViewById(R.id.register_dr_button);
-        city =  findViewById(R.id.city);
+        city_spinner =  findViewById(R.id.city);
+        state_spinner =  findViewById(R.id.state);
         dob=  findViewById(R.id.dob);
+
+        statetext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                statetext.setVisibility(View.INVISIBLE);
+                state_spinner.setVisibility(View.VISIBLE);
+                state_spinner.performClick();
+            }
+        });
+
+        citytext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                citytext.setVisibility(View.INVISIBLE);
+                city_spinner.setVisibility(View.VISIBLE);
+                city_spinner.performClick();
+            }
+        });
+        scl.createLists();
+        stateArrayAdapter = new ArrayAdapter<State>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, scl.states);
+        stateArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        state_spinner.setAdapter(stateArrayAdapter);
+
+        cityArrayAdapter = new ArrayAdapter<City>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, scl.cities);
+        cityArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        city_spinner.setAdapter(cityArrayAdapter);
+
+        state_spinner.setOnItemSelectedListener(state_listener);
+        city_spinner.setOnItemSelectedListener(city_listener);
 
         mAuth = FirebaseAuth.getInstance();
         fstore=FirebaseFirestore.getInstance();
@@ -111,12 +143,11 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
 
         loadingProgressBar = findViewById(R.id.loading);
 
-
         this.registerButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if (!validateFirstname() | !validateLastname() | !validateCity() | !validateEmail() | !validatePhone() | !validateDate() | !validatePassword() | !validateConfirmPassword())
+                if (!validateFirstname() | !validateLastname() | !validateCity() | !validateEmail()  | !validatePhone() | !validateDate() | !validatePassword() | !validateConfirmPassword())
                 {
                     return;
                 }
@@ -129,7 +160,7 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
                         if(task.isSuccessful())
                         {
                             FirebaseUser fuser=mAuth.getCurrentUser();
-                            fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                           /* fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast toast = Toast.makeText(getBaseContext(),"Email Sent For Verification, Please Check !",Toast.LENGTH_LONG);
@@ -139,13 +170,13 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast toast = Toast.makeText(getBaseContext(),"Error : "+ e.getMessage(),Toast.LENGTH_LONG);
+                                    Toast toast = Toast.makeText(getBaseContext(),"Error in creation: "+ e.getMessage(),Toast.LENGTH_LONG);
                                     toast.setGravity(Gravity.CENTER,0,0);
                                     toast.show();
                                 }
-                            });
+                            });*/
 
-                            sel_gen= findViewById(gender.getCheckedRadioButtonId());
+                            /*sel_gen= findViewById(gender.getCheckedRadioButtonId());
                             userID=mAuth.getCurrentUser().getUid();
                             DocumentReference docref= fstore.collection("userDetails").document(userID);
                             Map<String,Object> user =new HashMap<>();
@@ -160,7 +191,7 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast toast = Toast.makeText(getBaseContext(),"Registration Sucessful !!",Toast.LENGTH_LONG);
-                                    toast.setGravity(Gravity.CENTER,0,0);
+                                    toast.setGravity(Gravity.CENTER,0,5);
                                     toast.show();
                                     mAuth.signOut();
                                     startActivity(new Intent(getBaseContext(),LoginActivity.class));
@@ -169,13 +200,26 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast toast=Toast.makeText(getBaseContext(),"Error : "+e.getMessage(),Toast.LENGTH_LONG);
-                                    toast.setGravity(Gravity.CENTER,0,0);
+                                    Toast toast=Toast.makeText(getBaseContext(),"Error in registration: "+e.getMessage(),Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.CENTER,0,5);
                                     toast.show();
                                     final FirebaseUser userThis = mAuth.getCurrentUser();
                                     userThis.delete();
                                 }
-                            });
+                            });*/
+                            sel_gen= findViewById(gender.getCheckedRadioButtonId());
+                            Intent intent = new Intent(getBaseContext(),Verification_phone.class);
+                            intent.putExtra("firstName",firstname.getEditableText().toString().trim());
+                            intent.putExtra("lastName",lastname.getEditableText().toString().trim());
+                            intent.putExtra("emailID",emailid.getEditableText().toString().trim());
+                            intent.putExtra("phoneNo",phone.getEditableText().toString().trim());
+                            intent.putExtra("state",stateSelected);
+                            intent.putExtra("city",citySelected);
+                            intent.putExtra("gender",sel_gen.getText().toString().trim());
+                            intent.putExtra("dateOfBirth",dob.getEditableText().toString());
+                            startActivity(intent);
+                            finish();
+
                         }
                         else
                         {
@@ -192,7 +236,7 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
         this.dr_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!validateFirstname() | !validateLastname() | !validateCity() | !validateEmail() | !validatePhone() | !validateDate() | !validatePassword() | !validateConfirmPassword())
+                if (!validateFirstname() | !validateLastname() | ! validateCity() | !validateEmail()  | !validatePhone() | !validateDate() | !validatePassword() | !validateConfirmPassword())
                 {
                     return;
                 }
@@ -202,9 +246,53 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
     }
     public void openDialog(){
         Confirm_dr_dialog confirmdialog = new Confirm_dr_dialog();
-        confirmdialog.show(getSupportFragmentManager(),"example");
+        confirmdialog.show(getSupportFragmentManager(),"Confirmation");
     }
 
+
+    private AdapterView.OnItemSelectedListener state_listener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if (position >= 0) {
+                final State state = (State) state_spinner.getItemAtPosition(position);
+                stateSelected=state.getStateName();
+                stateID=state.getStateID();
+                Log.d("SpinnerCountry", "onItemSelected: state: "+state.getStateID());
+                ArrayList<City> tempCities = new ArrayList<>();
+
+                State firstState = new State(0, "Choose a State");
+                tempCities.add(new City(0, firstState, "Choose a City"));
+
+                if(position!=0){
+                for (City singleCity : scl.cities) {
+                    if (singleCity.getState().getStateID() == state.getStateID()) {
+                        tempCities.add(singleCity);
+                    }
+                }}
+                cityArrayAdapter = new ArrayAdapter<City>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, tempCities);
+                cityArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                city_spinner.setAdapter(cityArrayAdapter);
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    private AdapterView.OnItemSelectedListener city_listener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            final City city = (City) city_spinner.getItemAtPosition(position);
+            citySelected=city.getCityName();
+            cityID=city.getCityID();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+        }
+    };
 
     private void updateLabel( EditText dob, Calendar myCal) {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
@@ -243,18 +331,24 @@ public class RegisterActivity extends AppCompatActivity implements Confirm_dr_di
         }
     }
 
-    private boolean validateCity() {
-        String cityname = city.getEditableText().toString().trim();
-        String[] arr= cityname.split(" ");
-        if (cityname.isEmpty()) {
-            city.setError(null);
-            return true;
+    private boolean validateCity(){
+        if(cityID==0)
+        {
+            citytext.setVisibility(View.VISIBLE);
+            city_spinner.setVisibility(View.INVISIBLE);
+            citytext.setError("Please Select One");
+            return false;
         }
-        else {
-            city.setError(null);
-            return true;
+        if(stateID==0)
+        {
+            statetext.setVisibility(View.VISIBLE);
+            state_spinner.setVisibility(View.INVISIBLE);
+            statetext.setError("Please Select One");
+            return false;
         }
+        return true;
     }
+
     private boolean validateEmail() {
         String emailInput = emailid.getEditableText().toString().trim();
         if (emailInput.isEmpty()) {

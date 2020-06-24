@@ -144,6 +144,8 @@
     <string name="dateerror">Select a valid date</string>
     <string name="confirmerror">Password does not match</string>
     <string name="gender">Gender</string>
+    <string name="selectState">Select Your State</string>
+    <string name="selectCity">Select Your City</string>
 
     <string name="confirmation"><b>Confirmation</b></string>
     <string name="confirm__request_message">Are you sure you want to Register as a Doctor/Hospital ?</string>
