@@ -43,7 +43,7 @@ public class WelcomeActivity extends AppCompatActivity {
         getStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomeActivity.this,loginActivity.class));
+                startActivity(new Intent(WelcomeActivity.this,com.finalproject.it.sanjeevni.activities.SearchDoctor.searchMain.class));
                 finish();
             }
         });

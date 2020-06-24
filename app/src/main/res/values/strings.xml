@@ -125,4 +125,48 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_disease_full">DiseaseFullActivity</string>
+
+    <!--string_res for dr. search-->
+    <string-array name="states">
+        <item>--Select state--</item>
+        <item>Bihar</item>
+        <item>Delhi</item>
+        <item>Gujarat</item>
+        <item>Madhya Pradesh</item>
+        <item>Maharashtra</item>
+        <item>Uttar Pradesh</item>
+    </string-array>
+    <string-array name="def">
+        <item>--Select city--</item>
+    </string-array>
+    <string-array name="bihar_cities">
+        <item>--Select city--</item>
+        <item>Patna</item>
+        <item>Bodh Gaya</item>
+    </string-array>
+    <string-array name="delhi_cities">
+        <item>--Select city--</item>
+        <item>Delhi</item>
+        <item>New Delhi</item>
+    </string-array>
+    <string-array name="gujarat_cities">
+        <item>--Select city--</item>
+        <item>Ahmedabad</item>
+        <item>Amreli</item>
+    </string-array>
+    <string-array name="mp_cities">
+        <item>--Select city--</item>
+        <item>Gwalior</item>
+        <item>Ujjain</item>
+    </string-array>
+    <string-array name="mh_cities">
+        <item>--Select city--</item>
+        <item>Mumbai</item>
+        <item>Nagpur</item>
+    </string-array>
+    <string-array name="up_cities">
+        <item>--Select city--</item>
+        <item>Lucknow</item>
+        <item>Varanasi</item>
+    </string-array>
 </resources>
