@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ProgressBar loadingProgressBar;
     private FirebaseFirestore fstore;
-    private String userID,stateSelected,citySelected;
+    private String stateSelected,citySelected;
     private StateCity_List scl= new StateCity_List();
     private int stateID=0,cityID=0;
 
@@ -160,53 +160,6 @@ public class RegisterActivity extends AppCompatActivity {
                         if(task.isSuccessful())
                         {
                             FirebaseUser fuser=mAuth.getCurrentUser();
-                           /* fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast toast = Toast.makeText(getBaseContext(),"Email Sent For Verification, Please Check !",Toast.LENGTH_LONG);
-                                    toast.setGravity(Gravity.CENTER,0,0);
-                                    toast.show();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast toast = Toast.makeText(getBaseContext(),"Error in creation: "+ e.getMessage(),Toast.LENGTH_LONG);
-                                    toast.setGravity(Gravity.CENTER,0,0);
-                                    toast.show();
-                                }
-                            });*/
-
-                            /*sel_gen= findViewById(gender.getCheckedRadioButtonId());
-                            userID=mAuth.getCurrentUser().getUid();
-                            DocumentReference docref= fstore.collection("userDetails").document(userID);
-                            Map<String,Object> user =new HashMap<>();
-                            user.put("firstName",firstname.getEditableText().toString().trim());
-                            user.put("lastName",lastname.getEditableText().toString().trim());
-                            user.put("emailID",emailid.getEditableText().toString().trim());
-                            user.put("phoneNo",phone.getEditableText().toString().trim());
-                            user.put("city",city.getEditableText().toString().trim());
-                            user.put("gender",sel_gen.getText().toString().trim());
-                            user.put("dateOfBirth",dob.getEditableText().toString());
-                            docref.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast toast = Toast.makeText(getBaseContext(),"Registration Sucessful !!",Toast.LENGTH_LONG);
-                                    toast.setGravity(Gravity.CENTER,0,5);
-                                    toast.show();
-                                    mAuth.signOut();
-                                    startActivity(new Intent(getBaseContext(),LoginActivity.class));
-                                    finish();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast toast=Toast.makeText(getBaseContext(),"Error in registration: "+e.getMessage(),Toast.LENGTH_LONG);
-                                    toast.setGravity(Gravity.CENTER,0,5);
-                                    toast.show();
-                                    final FirebaseUser userThis = mAuth.getCurrentUser();
-                                    userThis.delete();
-                                }
-                            });*/
                             sel_gen= findViewById(gender.getCheckedRadioButtonId());
                             Intent intent = new Intent(getBaseContext(),Verification_phone.class);
                             intent.putExtra("firstName",firstname.getEditableText().toString().trim());

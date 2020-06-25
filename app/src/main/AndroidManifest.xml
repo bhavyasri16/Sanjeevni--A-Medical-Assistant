@@ -13,8 +13,11 @@
         android:roundIcon="@mipmap/abc"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ui.login.Verification_phone"
-            android:parentActivityName=".activities.ui.login.RegisterActivity"></activity>
+        <activity android:name=".fragment.ProfileView"
+            android:parentActivityName=".activities.WelcomeActivity"></activity>
+        <activity
+            android:name=".activities.ui.login.Verification_phone"
+            android:parentActivityName=".activities.ui.login.RegisterActivity" />
         <activity
             android:name=".activities.ui.login.LoginActivity"
             android:parentActivityName=".activities.WelcomeActivity" />

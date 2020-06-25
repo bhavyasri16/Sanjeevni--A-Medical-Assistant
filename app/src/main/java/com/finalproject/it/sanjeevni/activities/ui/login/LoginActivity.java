@@ -74,7 +74,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getBaseContext(), RegisterActivity.class));
-                finish();
             }
         });
 
@@ -116,11 +115,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*public void openDialog(){
-        Reset_password confirmdialog = new Reset_password();
-        confirmdialog.show(getSupportFragmentManager(),"example");
-    }*/
 
     private boolean validateEmail() {
         String emailInput = usern.getEditableText().toString().trim();

@@ -89,6 +89,7 @@ public class Verification_phone extends AppCompatActivity {
 
     }
     private void sendVerificationCodeToUser(String phoneNo) {
+        progress.setVisibility(View.VISIBLE);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+91"+phoneNo, 60, TimeUnit.SECONDS, TaskExecutors.MAIN_THREAD,mCallbacks );
     }
@@ -105,9 +106,8 @@ public class Verification_phone extends AppCompatActivity {
 
 
             String code = phoneAuthCredential.getSmsCode();
-            if(code !=null)
+            if(code !=null )
             {
-                progress.setVisibility(View.VISIBLE);
                 Toast toast = Toast.makeText(getBaseContext(),"Phone Verification Successful !!",Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER,0,0);
                 toast.show();
@@ -148,6 +148,7 @@ public class Verification_phone extends AppCompatActivity {
                                     toast.setGravity(Gravity.CENTER,0,5);
                                     toast.show();
                                     mAuth.signOut();
+                                    progress.setVisibility(View.INVISIBLE);
                                     startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                                     finish();
                                 }
@@ -159,11 +160,12 @@ public class Verification_phone extends AppCompatActivity {
                                     toast.show();
                                     final FirebaseUser userThis = mAuth.getCurrentUser();
                                     userThis.delete();
+                                    progress.setVisibility(View.INVISIBLE);
                                     startActivity(new Intent(getBaseContext(),RegisterActivity.class));
                                     finish();
                                 }
                             });
-                progress.setVisibility(View.INVISIBLE);
+
 
             }
         }

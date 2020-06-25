@@ -10,8 +10,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.Spanned;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +28,7 @@ import android.widget.Toast;
 
 import com.finalproject.it.sanjeevni.R;
 import com.finalproject.it.sanjeevni.activities.ui.login.LoginActivity;
+import com.finalproject.it.sanjeevni.fragment.ProfileView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -64,7 +68,6 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getBaseContext(), LoginActivity.class));
-                finish();
             }
         });}
 
@@ -89,7 +92,6 @@ public class WelcomeActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
 
-
         if(mAuth.getCurrentUser()!=null)
         {
 
@@ -97,41 +99,9 @@ public class WelcomeActivity extends AppCompatActivity {
             getStarted.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    final FirebaseUser fuser= mAuth.getCurrentUser();
-                    if(!fuser.isEmailVerified()){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                        builder.setMessage("Please Verify Email ID First, Then Login Again !!")
-                                .setCancelable(false)
-                                .setPositiveButton("Resend Verification", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast toast = Toast.makeText(getBaseContext(),"Email Sent For Verification, Please Check !",Toast.LENGTH_LONG);
-                                                toast.setGravity(Gravity.CENTER,0,0);
-                                                toast.show();
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast toast = Toast.makeText(getBaseContext(),"Error : "+ e.getMessage(),Toast.LENGTH_LONG);
-                                                toast.setGravity(Gravity.CENTER,0,0);
-                                                toast.show();
-                                            }
-                                        });
-                                    }
-                                })
-                                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.dismiss();
-                                    }
-                                })
-                                //Set your icon here
-                                .setTitle("Alert !! ")
-                                .setIcon(R.drawable.ic_mail_error);
-                        builder.create().show();
-                    }
-
+                    Toast toast = Toast.makeText(getBaseContext(),"Please Select One of the Above Options to Proceed",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
                 }
             });
         }
@@ -146,7 +116,8 @@ public class WelcomeActivity extends AppCompatActivity {
         dotsLayout.removeAllViews();
         for (int i = 0; i < dots.length; i++) {
             dots[i] = new TextView(this);
-            dots[i].setText(Html.fromHtml("&#8226;"));
+            dots[i].setText(Html.fromHtml("&#8226;",Html.FROM_HTML_MODE_LEGACY));
+            //dots[i].setText(Html.fromHtml("&#8226;"));
             dots[i].setTextSize(35);
             dots[i].setTextColor(colorsInactive[currentPage]);
             dotsLayout.addView(dots[i]);
@@ -181,21 +152,48 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     };
 
-    /**
-     * Making notification bar transparent
-     */
-    /*private void changeStatusBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
+    private boolean checkMail(View view)
+    {
+        final FirebaseUser fuser= mAuth.getCurrentUser();
+        if(!fuser.isEmailVerified()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+            builder.setMessage("Please Verify Email ID First to Proceed, Then Login Again !!")
+                    .setCancelable(false)
+                    .setPositiveButton("Resend Verification", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast toast = Toast.makeText(getBaseContext(),"Email Sent For Verification, Please Check !",Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.CENTER,0,0);
+                                    toast.show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast toast = Toast.makeText(getBaseContext(),"Error : "+ e.getMessage(),Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.CENTER,0,0);
+                                    toast.show();
+                                }
+                            });
+                        }
+                    })
+                    .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    })
+                    //Set your icon here
+                    .setTitle("Alert !! ")
+                    .setIcon(R.drawable.ic_mail_error);
+                    builder.create().show();
+                    return false;
         }
-    }*/
+        return true;
+    }
 
-    /**
-     * View pager adapter
-     */
 
+    //Menu Option On Top-Right
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if(mAuth.getCurrentUser()!=null){
@@ -214,9 +212,13 @@ public class WelcomeActivity extends AppCompatActivity {
         else if(id==R.id.refresh){
             recreate();
         }
+        else if(id==R.id.profile_btm){
+            startActivity(new Intent(getBaseContext(), ProfileView.class));
+        }
         return super.onOptionsItemSelected(item);}
         return false;
     }
+    //Menu Option Till here
 
     public class MyViewPagerAdapter extends PagerAdapter {
         private LayoutInflater layoutInflater;
@@ -230,20 +232,20 @@ public class WelcomeActivity extends AppCompatActivity {
 
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
-            if(mAuth.getCurrentUser()!=null) {
+            if(mAuth.getCurrentUser()!=null ) {
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if(checkMail(view)){
                         if (position == 0) {
                             startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                            finish();
                         } else if (position == 1) {
 
                         } else if (position == 2) {
 
                         } else {
 
-                        }
+                        }}
                     }
                 });
             }
