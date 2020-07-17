@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.activities.bloodBank.BloodBank;
 import com.finalproject.it.sanjeevni.activities.ui.login.LoginActivity;
 import com.finalproject.it.sanjeevni.fragment.ProfileView;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -240,7 +241,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         if (position == 0) {
                             startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                         } else if (position == 1) {
-
+                            startActivity(new Intent(WelcomeActivity.this, BloodBank.class));
                         } else if (position == 2) {
 
                         } else {

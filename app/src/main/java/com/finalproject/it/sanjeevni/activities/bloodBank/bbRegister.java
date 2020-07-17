@@ -1,8 +1,6 @@
 package com.finalproject.it.sanjeevni.activities.bloodBank;
 
 import android.content.Context;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -14,7 +12,10 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.finalproject.it.sanjeevni.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class bbRegister extends AppCompatActivity {
     TextInputLayout inputID, inputBGroup;

@@ -1,15 +1,16 @@
 package com.finalproject.it.sanjeevni.activities.bloodBank;
 
 import android.content.Context;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.finalproject.it.sanjeevni.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class bbDonate extends AppCompatActivity {
     TextInputLayout inputName, inputContact, inputIDProof, searchBGroup, searchCity;
@@ -20,12 +21,12 @@ public class bbDonate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bb_donate);
 
-        inputName = (TextInputLayout)findViewById(R.id.inputName);
-        inputContact = (TextInputLayout)findViewById(R.id.inputContact);
-        inputIDProof = (TextInputLayout)findViewById(R.id.inputIDProof);
-        searchBGroup = (TextInputLayout)findViewById(R.id.searchBgroup);
-        searchCity = (TextInputLayout)findViewById(R.id.searchCity);
-        btnSearch = (Button)findViewById(R.id.btnSearch);
+        inputName = findViewById(R.id.inputName);
+        inputContact = findViewById(R.id.inputContact);
+        inputIDProof = findViewById(R.id.inputIDProof);
+        searchBGroup = findViewById(R.id.searchBgroup);
+        searchCity = findViewById(R.id.searchCity);
+        btnSearch = findViewById(R.id.btnSearch);
 
         //adding back button in Action Bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
