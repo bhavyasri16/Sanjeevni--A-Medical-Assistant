@@ -189,7 +189,7 @@ public class RegisterActivity extends AppCompatActivity {
         this.dr_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!validateFirstname() | !validateLastname() | ! validateCity() | !validateEmail()  | !validatePhone() | !validateDate() | !validatePassword() | !validateConfirmPassword())
+                if (! validateCity() | !validateEmail()  | !validatePhone() | !validatePassword() | !validateConfirmPassword())
                 {
                     return;
                 }
