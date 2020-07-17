@@ -18,6 +18,24 @@
         <activity
             android:name=".activities.ui.login.Verification_phone"
             android:parentActivityName=".activities.ui.login.RegisterActivity" />
+        <activity android:name=".activities.bloodBank.bbDonate"
+            android:parentActivityName=".activities.bloodBank.BloodBank"
+            android:windowSoftInputMode="stateVisible">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.bloodBank.BloodBank"
+                />
+        </activity>
+        <activity android:name=".activities.bloodBank.bbRegister"
+            android:parentActivityName=".activities.bloodBank.BloodBank"
+            android:windowSoftInputMode="stateVisible">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.bloodBank.BloodBank"
+                />
+        </activity>
+        <activity android:name=".activities.bloodBank.BloodBank" />
+        <activity android:name=".activities.loginActivity" />
         <activity
             android:name=".activities.ui.login.LoginActivity"
             android:parentActivityName=".activities.WelcomeActivity" />
