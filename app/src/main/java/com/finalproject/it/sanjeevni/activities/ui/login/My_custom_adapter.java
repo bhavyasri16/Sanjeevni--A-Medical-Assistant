@@ -28,6 +28,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class My_custom_adapter extends ArrayAdapter {
 
@@ -109,7 +110,10 @@ public class My_custom_adapter extends ArrayAdapter {
                                  .addOnSuccessListener(new OnSuccessListener<Void>() {
                                      @Override
                                      public void onSuccess(Void aVoid) {
-                                         fstore.collection("To_Be_Deleted").document(hashMap1.get("userID"));
+                                         DocumentReference newRef=fstore.collection("To_Be_Deleted").document(hashMap1.get("userID"));
+                                         Map<String,String> info = new HashMap<String,String>();
+                                         info.put("info","Authentication Details Needs to be Deleted");
+                                         newRef.set(info);
                                          Log.d(TAG, "DocumentSnapshot successfully deleted!");
                                      }
                                  })
