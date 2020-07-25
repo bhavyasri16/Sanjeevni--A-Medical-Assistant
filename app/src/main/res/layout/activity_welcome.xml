@@ -47,9 +47,9 @@ tools:context="com.finalproject.it.sanjeevni.activities.WelcomeActivity">
         android:layout_above="@id/layoutDots"
         android:textColor="@android:color/white" />
 
-
-
 </RelativeLayout>
+
+
 
 <LinearLayout
     android:id="@+id/linearLayout"

@@ -144,6 +144,8 @@
     <string name="dateerror">Select a valid date</string>
     <string name="confirmerror">Password does not match</string>
     <string name="gender">Gender</string>
+    <string name="category">Category</string>
+    <string name="appointment">Appointment Type Accepted : </string>
     <string name="selectState">Select Your State</string>
     <string name="selectCity">Select Your City</string>
 

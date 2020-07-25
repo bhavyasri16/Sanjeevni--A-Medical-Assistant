@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,12 +29,23 @@ import android.widget.Toast;
 
 import com.finalproject.it.sanjeevni.R;
 import com.finalproject.it.sanjeevni.activities.bloodBank.BloodBank;
+import com.finalproject.it.sanjeevni.activities.ui.login.Approve_Requests;
 import com.finalproject.it.sanjeevni.activities.ui.login.LoginActivity;
 import com.finalproject.it.sanjeevni.fragment.ProfileView;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -44,7 +56,10 @@ public class WelcomeActivity extends AppCompatActivity {
     private int[] layouts;
     private Button getStarted;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore fstore;
     private LayoutInflater inflater;
+    private List<String> list;
+    private int identify_operation=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,23 +71,27 @@ public class WelcomeActivity extends AppCompatActivity {
         }*/
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_welcome);
-
-
-
+        fstore=FirebaseFirestore.getInstance();
+        fstore.collection("User_Type").document("admins").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        if(document.getData().containsValue(mAuth.getCurrentUser().getUid())) {
+                            getStarted.setText("Check Pending Requests");
+                            identify_operation=1;
+                        }
+                    }
+                } else {
+                    Log.d("TAG", "Error getting documents: ", task.getException());
+                }
+            }
+        });
 
         viewPager =  findViewById(R.id.view_pager);
         dotsLayout = findViewById(R.id.layoutDots);
         getStarted = findViewById(R.id.btn_get_started);
-
-        if(mAuth.getCurrentUser()==null)
-        {getStarted.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getBaseContext(), LoginActivity.class));
-            }
-        });}
-
-
 
         // layouts of all welcome sliders
         // add few more layouts if you want
@@ -97,15 +116,33 @@ public class WelcomeActivity extends AppCompatActivity {
         {
 
             getStarted.setText("Click To Proceed");
-            getStarted.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            identify_operation=3;
+        }
+        else
+        {
+            identify_operation=2;
+        }
+
+        getStarted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(identify_operation==1)
+                {
+                    startActivity(new Intent(getBaseContext(), Approve_Requests.class));
+                }
+                else if(identify_operation==2)
+                {
+                    startActivity(new Intent(getBaseContext(), LoginActivity.class));
+                }
+                else if(identify_operation==3)
+                {
                     Toast toast = Toast.makeText(getBaseContext(),"Please Select One of the Above Options to Proceed",Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER,0,0);
                     toast.show();
                 }
-            });
-        }
+
+            }
+        });
     }
 
     private void addBottomDots(int currentPage) {

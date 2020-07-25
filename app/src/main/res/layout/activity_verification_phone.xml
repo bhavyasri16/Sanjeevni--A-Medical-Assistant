@@ -16,12 +16,13 @@
                 android:id="@+id/one_step"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
+                android:paddingTop="0.8in"
                 android:paddingBottom="15dp"
                 android:text="Just One Step Away ...!!"
                 android:background="@color/splash_bg_color"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20dp"
-                android:gravity="bottom"
+                android:gravity="center"
                 android:textAlignment="center"/>
 
             <TextView

@@ -36,7 +36,7 @@ public class Verification_phone extends AppCompatActivity {
     private EditText otp;
     private Button verify_btn;
     private ProgressBar progress;
-    private String phoneNo,firstName,lastName,emailID,city,gender,dateOfBirth,userID,state,no="NO";
+    private String phoneNo,firstName,lastName,emailID,city,gender,dateOfBirth,userID,state,no="NO",password;
     private FirebaseAuth mAuth;
     private FirebaseFirestore fstore;
 
@@ -72,6 +72,7 @@ public class Verification_phone extends AppCompatActivity {
         emailID=getIntent().getStringExtra("emailID");
         dateOfBirth=getIntent().getStringExtra("dateOfBirth");
         gender=getIntent().getStringExtra("gender");
+        password=getIntent().getStringExtra("password");
 
         sendVerificationCodeToUser(phoneNo);
 
@@ -111,8 +112,12 @@ public class Verification_phone extends AppCompatActivity {
                 Toast toast = Toast.makeText(getBaseContext(),"Phone Verification Successful !!",Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER,0,0);
                 toast.show();
-
-                FirebaseUser fuser=mAuth.getCurrentUser();
+                mAuth.createUserWithEmailAndPassword(emailID,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful())
+                        {
+                            FirebaseUser fuser=mAuth.getCurrentUser();
                            fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -144,7 +149,9 @@ public class Verification_phone extends AppCompatActivity {
                             docref.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast toast = Toast.makeText(getApplicationContext(),"Registration Sucessful !!",Toast.LENGTH_LONG);
+                                    DocumentReference docref= fstore.collection("DonorList").document(userID);
+                                    docref.update("requests",0);
+                                    Toast toast = Toast.makeText(getApplicationContext(),"Registration Successful !!",Toast.LENGTH_LONG);
                                     toast.setGravity(Gravity.CENTER,0,5);
                                     toast.show();
                                     mAuth.signOut();
@@ -165,7 +172,17 @@ public class Verification_phone extends AppCompatActivity {
                                     finish();
                                 }
                             });
-
+                        }
+                        else
+                        {
+                            Toast toast = Toast.makeText(getBaseContext(),"Error : "+task.getException().getMessage(),Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER,0,0);
+                            toast.show();
+                            startActivity(new Intent(getBaseContext(),RegisterActivity.class));
+                            finish();
+                        }
+                    }
+                });
 
             }
         }

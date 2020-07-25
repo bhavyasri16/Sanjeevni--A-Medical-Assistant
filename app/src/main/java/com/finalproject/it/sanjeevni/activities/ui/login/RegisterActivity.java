@@ -59,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String stateSelected,citySelected;
     private StateCity_List scl= new StateCity_List();
     private int stateID=0,cityID=0;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,15 +154,8 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                mAuth.createUserWithEmailAndPassword(emailid.getEditableText().toString().trim(),
-                        password.getEditableText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful())
-                        {
-                            FirebaseUser fuser=mAuth.getCurrentUser();
                             sel_gen= findViewById(gender.getCheckedRadioButtonId());
-                            Intent intent = new Intent(getBaseContext(),Verification_phone.class);
+                            intent = new Intent(getBaseContext(),Verification_phone.class);
                             intent.putExtra("firstName",firstname.getEditableText().toString().trim());
                             intent.putExtra("lastName",lastname.getEditableText().toString().trim());
                             intent.putExtra("emailID",emailid.getEditableText().toString().trim());
@@ -170,18 +164,11 @@ public class RegisterActivity extends AppCompatActivity {
                             intent.putExtra("city",citySelected);
                             intent.putExtra("gender",sel_gen.getText().toString().trim());
                             intent.putExtra("dateOfBirth",dob.getEditableText().toString());
+                            intent.putExtra("password",password.getEditableText().toString().trim());
                             startActivity(intent);
                             finish();
 
-                        }
-                        else
-                        {
-                            Toast toast = Toast.makeText(getBaseContext(),"Error : "+task.getException().getMessage(),Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER,0,0);
-                            toast.show();
-                        }
-                    }
-                });
+
                 loadingProgressBar.setVisibility(View.INVISIBLE);
             }
         });
@@ -193,13 +180,21 @@ public class RegisterActivity extends AppCompatActivity {
                 {
                     return;
                 }
-                openDialog();
+                loadingProgressBar.setVisibility(View.VISIBLE);
+                intent = new Intent(getBaseContext(),DoctorRegister.class);
+                intent.putExtra("emailID",emailid.getEditableText().toString().trim());
+                intent.putExtra("phoneNo",phone.getEditableText().toString().trim());
+                intent.putExtra("state",stateSelected);
+                intent.putExtra("city",citySelected);
+                intent.putExtra("password",password.getEditableText().toString().trim());
+                startActivity(intent);
+                finish();
+
+
+                loadingProgressBar.setVisibility(View.INVISIBLE);
+
             }
         });
-    }
-    public void openDialog(){
-        Confirm_dr_dialog confirmdialog = new Confirm_dr_dialog();
-        confirmdialog.show(getSupportFragmentManager(),"Confirmation");
     }
 
 

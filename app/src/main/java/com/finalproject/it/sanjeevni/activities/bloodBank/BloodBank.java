@@ -2,12 +2,16 @@ package com.finalproject.it.sanjeevni.activities.bloodBank;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.fragment.ProfileView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class BloodBank extends AppCompatActivity {
     Button btnRegAs, btnDonate;
@@ -40,5 +44,26 @@ public class BloodBank extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+            getMenuInflater().inflate(R.menu.mymenu, menu);
+            return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+            int id = item.getItemId();
+            if (id == R.id.logout_btn) {
+                FirebaseAuth.getInstance().signOut();
+                recreate();
+            }
+            else if(id==R.id.refresh){
+                recreate();
+            }
+            else if(id==R.id.profile_btm){
+                startActivity(new Intent(getBaseContext(), ProfileView.class));
+            }
+            return super.onOptionsItemSelected(item);
     }
 }

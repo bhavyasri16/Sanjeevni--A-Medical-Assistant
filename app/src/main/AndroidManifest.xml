@@ -4,6 +4,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <application
         android:name=".app.AppController"
@@ -13,26 +20,30 @@
         android:roundIcon="@mipmap/abc"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".fragment.ProfileView"
+        <activity android:name=".activities.ui.login.Approve_Requests"
             android:parentActivityName=".activities.WelcomeActivity"></activity>
+        <activity android:name=".activities.ui.login.DoctorRegister" />
+        <activity
+            android:name=".fragment.ProfileView"
+            android:parentActivityName=".activities.WelcomeActivity" />
         <activity
             android:name=".activities.ui.login.Verification_phone"
             android:parentActivityName=".activities.ui.login.RegisterActivity" />
-        <activity android:name=".activities.bloodBank.bbDonate"
+        <activity
+            android:name=".activities.bloodBank.bbDonate"
             android:parentActivityName=".activities.bloodBank.BloodBank"
             android:windowSoftInputMode="stateVisible">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.bloodBank.BloodBank"
-                />
+                android:value=".activities.bloodBank.BloodBank" />
         </activity>
-        <activity android:name=".activities.bloodBank.bbRegister"
+        <activity
+            android:name=".activities.bloodBank.bbRegister"
             android:parentActivityName=".activities.bloodBank.BloodBank"
             android:windowSoftInputMode="stateVisible">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.bloodBank.BloodBank"
-                />
+                android:value=".activities.bloodBank.BloodBank" />
         </activity>
         <activity android:name=".activities.bloodBank.BloodBank" />
         <activity
@@ -47,6 +58,7 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
