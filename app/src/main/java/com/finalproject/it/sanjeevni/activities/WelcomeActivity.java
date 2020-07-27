@@ -276,7 +276,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if(checkMail(view)){
                         if (position == 0) {
-                            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                            startActivity(new Intent(WelcomeActivity.this, com.finalproject.it.sanjeevni.activities.searchDoctor.searchMain.class));
                         } else if (position == 1) {
                             startActivity(new Intent(WelcomeActivity.this, BloodBank.class));
                         } else if (position == 2) {

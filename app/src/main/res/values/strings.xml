@@ -152,4 +152,48 @@
     <string name="confirmation"><b>Confirmation</b></string>
     <string name="confirm__request_message">Are you sure you want to Register as a Doctor/Hospital ?</string>
     <string name="reset_password"><b>Reset Password</b></string>
+
+    <!--resource for dr.search-->
+    <string-array name="states">
+        <item>--Select state--</item>
+        <item>Bihar</item>
+        <item>Delhi</item>
+        <item>Gujarat</item>
+        <item>Madhya Pradesh</item>
+        <item>Maharashtra</item>
+        <item>Uttar Pradesh</item>
+    </string-array>
+    <string-array name="def">
+        <item>--Select city--</item>
+    </string-array>
+    <string-array name="bihar_cities">
+        <item>--Select city--</item>
+        <item>Patna</item>
+        <item>Bodh Gaya</item>
+    </string-array>
+    <string-array name="delhi_cities">
+        <item>--Select city--</item>
+        <item>Delhi</item>
+        <item>New Delhi</item>
+    </string-array>
+    <string-array name="gujarat_cities">
+        <item>--Select city--</item>
+        <item>Ahmedabad</item>
+        <item>Amreli</item>
+    </string-array>
+    <string-array name="mp_cities">
+        <item>--Select city--</item>
+        <item>Gwalior</item>
+        <item>Ujjain</item>
+    </string-array>
+    <string-array name="mh_cities">
+        <item>--Select city--</item>
+        <item>Mumbai</item>
+        <item>Nagpur</item>
+    </string-array>
+    <string-array name="up_cities">
+        <item>--Select city--</item>
+        <item>Lucknow</item>
+        <item>Varanasi</item>
+    </string-array>
 </resources>

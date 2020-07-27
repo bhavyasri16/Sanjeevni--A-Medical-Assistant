@@ -1,143 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/splash_bg_color"
     tools:context=".activities.bloodBank.bbDonate">
 
-    <TextView
-        android:id="@+id/textView5"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10sp"
-        android:layout_marginTop="20sp"
-        android:layout_marginRight="10sp"
-        android:gravity="center"
-        android:text="Fill in the following details to find suitable donors for you"
-        android:textColor="@android:color/black"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:typeface="serif" />
+        android:layout_height="match_parent"
+        android:background="@color/splash_bg_color">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="25sp"
-        android:layout_marginRight="15sp"
-        android:gravity="center">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etName"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
             android:gravity="center"
-            android:hint="Name(of the person to be contacted)"
-            android:inputType="text"
-            android:singleLine="true"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorPrimary" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="Fill in the following details to find suitable donors for you"
+            android:textColor="@android:color/black"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputContact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="15sp"
-        android:layout_marginRight="15sp"
-        app:errorEnabled="true"
-        android:gravity="center">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etContact"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="14dp"
             android:gravity="center"
-            android:hint="Contact No.(currently available)"
-            android:inputType="number"
-            android:maxLength="10"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorPrimary" />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/searchBgroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="15sp"
-        android:layout_marginRight="15sp"
-        android:gravity="center">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:hint="Name(of the person to be contacted)"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorPrimary" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etSearchBGroup"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputContact"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="14dp"
             android:gravity="center"
-            android:hint="Blood group you are searching for?"
-            android:singleLine="true"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorPrimary" />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputName">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/searchCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="15sp"
-        android:layout_marginRight="15sp"
-        android:gravity="center">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="Contact No.(currently available)"
+                android:inputType="number"
+                android:maxLength="10"
+                android:paddingBottom="10dp"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorPrimary" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etSearchCity"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/searchBgroup"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="14dp"
             android:gravity="center"
-            android:hint="City you are in?"
-            android:singleLine="true"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorPrimary" />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputContact">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputIDProof"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15sp"
-        android:layout_marginTop="15sp"
-        android:layout_marginRight="15sp"
-        android:gravity="center"
-        app:errorEnabled="true">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSearchBGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:hint="Blood group you are searching for?"
+                android:singleLine="true"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorPrimary" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etIDProof"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/searchCity"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginRight="14dp"
             android:gravity="center"
-            android:hint="ID Proof(Aadhaar No.)"
-            android:inputType="number"
-            android:maxLength="12"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorPrimary" />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchBgroup">
 
-    <Button
-        android:id="@+id/btnSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20sp"
-        android:fontFamily="sans-serif"
-        android:text="Search"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:typeface="serif" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSearchCity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:hint="City you are in?"
+                android:singleLine="true"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorPrimary" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-</LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputIDProof"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="14dp"
+            android:gravity="center"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchCity">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etIDProof"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="ID Proof(Aadhaar No.)"
+                android:inputType="number"
+                android:maxLength="12"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorPrimary" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:fontFamily="sans-serif"
+            android:text="Search"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputIDProof" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

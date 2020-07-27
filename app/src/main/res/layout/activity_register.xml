@@ -1,260 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_width="match_parent"
     tools:context=".activities.ui.login.RegisterActivity">
 
-    <EditText
-        android:id="@+id/first_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
-        android:hint="First Name"
-        android:inputType="textAutoComplete"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/last_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="24dp"
-        android:hint="Last Name"
-        android:inputType="textAutoComplete"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/first_name" />
-
-    <EditText
-        android:id="@+id/email_id"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="24dp"
-        android:hint="@string/prompt_email"
-        android:inputType="textEmailAddress"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/last_name" />
-
-    <EditText
-        android:id="@+id/phone_no"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="15dp"
-        android:hint="Mobile No."
-        android:inputType="number"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_id" />
-
-    <TextView
-        android:id="@+id/state_text"
-        android:layout_width="match_parent"
-        android:paddingLeft="5dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="15dp"
-        android:text="@string/selectState"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_no" />
-    <Spinner
-        android:id="@+id/state"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="15dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_no" />
+        android:gravity="center"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
 
-    <TextView
-        android:id="@+id/citytext"
-        android:layout_width="match_parent"
-        android:paddingLeft="5dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="15dp"
-        android:text="@string/selectCity"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/state" />
-    <Spinner
-        android:id="@+id/city"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="15dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/state" />
 
-    <EditText
-        android:id="@+id/dob"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:focusable="false"
-        android:hint="Date Of Birth"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/city" />
+        <EditText
+            android:id="@+id/first_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="24dp"
+            android:hint="First Name"
+            android:inputType="textAutoComplete"
+            android:selectAllOnFocus="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/gender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/gender"
-        android:textColor="#000000"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@id/create_password"
-        app:layout_constraintEnd_toEndOf="@id/create_password"
-        app:layout_constraintLeft_toLeftOf="@+id/gender_radio"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dob" />
+        <EditText
+            android:id="@+id/last_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
+            android:hint="Last Name"
+            android:inputType="textAutoComplete"
+            android:selectAllOnFocus="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/first_name" />
 
-    <RadioGroup
-        android:id="@+id/gender_radio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@id/create_password"
-        app:layout_constraintRight_toRightOf="@+id/gender"
-        app:layout_constraintStart_toStartOf="@+id/gender"
-        app:layout_constraintTop_toBottomOf="@+id/dob">
+        <EditText
+            android:id="@+id/email_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/prompt_email"
+            android:inputType="textEmailAddress"
+            android:selectAllOnFocus="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/last_name" />
 
-        <RadioButton
-            android:id="@+id/male_check"
+        <EditText
+            android:id="@+id/phone_no"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="15dp"
+            android:hint="Mobile No."
+            android:inputType="number"
+            android:selectAllOnFocus="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email_id" />
+
+        <TextView
+            android:id="@+id/state_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
+            android:paddingLeft="5dp"
+            android:text="@string/selectState"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@id/citytext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phone_no" />
+
+        <Spinner
+            android:id="@+id/state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/citytext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phone_no" />
+
+        <TextView
+            android:id="@+id/citytext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="15dp"
+            android:paddingLeft="5dp"
+            android:text="@string/selectCity"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/state" />
+
+        <Spinner
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="15dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/state" />
+
+        <EditText
+            android:id="@+id/dob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:focusable="false"
+            android:hint="Date Of Birth"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/city" />
+
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/gender"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="@id/gender_radio"
+            app:layout_constraintLeft_toLeftOf="@+id/gender_radio"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dob" />
+
+        <RadioGroup
+            android:id="@+id/gender_radio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Male" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/gender"
+            app:layout_constraintStart_toStartOf="@+id/gender"
+            app:layout_constraintTop_toBottomOf="@+id/dob">
 
-        <RadioButton
-            android:id="@+id/female_check"
-            android:layout_width="wrap_content"
+            <RadioButton
+                android:id="@+id/male_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male" />
+
+            <RadioButton
+                android:id="@+id/female_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/create_password"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Female" />
-    </RadioGroup>
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
 
-    <EditText
-        android:id="@+id/create_password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="24dp"
+            android:hint="@string/prompt_password"
+            android:inputType="textPassword"
+            android:selectAllOnFocus="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gender" />
 
-        android:hint="@string/prompt_password"
-        android:inputType="textPassword"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender" />
+        <EditText
+            android:id="@+id/confirm_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
 
-    <EditText
-        android:id="@+id/confirm_password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="24dp"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:selectAllOnFocus="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/create_password" />
 
-        android:hint="Confirm Password"
-        android:inputType="textPassword"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_password" />
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="48dp"
+            android:background="@drawable/mybutton"
+            android:focusable="true"
+            android:scrollbars="vertical"
+            android:text="Register"
+            android:textColor="#FFFFFF"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/confirm_password" />
 
-    <Button
-        android:id="@+id/register_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="64dp"
-        android:background="@drawable/mybutton"
-        android:focusable="true"
-        android:text="Register"
-        android:textColor="#FFFFFF"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirm_password"
-        app:layout_constraintVertical_bias="0.2" />
+        <Button
+            android:id="@+id/register_dr_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="48dp"
+            android:background="@android:color/transparent"
+            android:focusable="true"
+            android:text="Register as a Doctor"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_button" />
 
-    <Button
-        android:id="@+id/register_dr_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="48dp"
-        android:background="@android:color/transparent"
-        android:focusable="true"
-        android:minHeight="7dp"
-        android:text="Register as a Doctor"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_button"
-        app:layout_constraintVertical_bias="0" />
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="88dp"
+            android:layout_height="0dp"
+            android:layout_below="@id/phone_no"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="232dp"
+            android:layout_marginBottom="25dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/gender"
+            app:layout_constraintStart_toStartOf="@+id/gender_radio"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="88dp"
-        android:layout_height="0dp"
-        android:layout_below="@id/phone_no"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="232dp"
-        android:layout_marginBottom="25dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/gender"
-        app:layout_constraintStart_toStartOf="@+id/gender_radio"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

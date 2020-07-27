@@ -1,156 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/splash_bg_color"
     tools:context=".activities.bloodBank.bbRegister">
 
-    <TextView
-        android:id="@+id/textView4"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20px"
-        android:layout_marginTop="40px"
-        android:layout_marginRight="20px"
-        android:gravity="center"
-        android:text="Please fill in the following details to register yourself"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:background="@color/splash_bg_color">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputBGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10sp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etBGroup"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30px"
-            android:layout_marginTop="50px"
-            android:layout_marginRight="30px"
-            android:ems="10"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
             android:gravity="center"
-            android:hint="Blood Group"
+            android:text="Please fill in the following details to register yourself"
+            android:textColor="@android:color/black"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputBGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etBGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Blood Group"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorPrimary" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="14dp"
+            app:counterMaxLength="12"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputBGroup">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etID"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:clickable="false"
+                android:gravity="center"
+                android:hint="ID Proof(Aadhaar No.)"
+                android:inputType="number"
+                android:maxLength="12"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorPrimary" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvDisease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="14dp"
+            android:paddingLeft="10dp"
+            android:text="Are you suffering from any disease?"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inputID" />
+
+        <RadioGroup
+            android:id="@+id/rbDisease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="14dp"
+            android:checkedButton="@id/rbNo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDisease">
+
+            <RadioButton
+                android:id="@+id/rbYes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Yes"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/rbNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="No"
+                android:textSize="16sp" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/etDisease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="14dp"
+            android:ems="10"
+            android:hint="Please mention the disease"
             android:inputType="textPersonName"
             android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorPrimary" />
+            android:textColorHint="@color/colorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rbDisease" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/inputID"
-        app:counterMaxLength="12"
-        app:errorEnabled="true"
-        android:layout_marginLeft="30px">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etID"
-            android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/cbDeclaration"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0px"
-            android:layout_marginTop="20px"
-            android:layout_marginRight="30px"
-            android:clickable="false"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="ID Proof(Aadhaar No.)"
-            android:inputType="number"
-            android:maxLength="12"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorPrimary" />
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="14dp"
+            android:onClick="onCheckBoxClicked"
+            android:text="I hereby declare that the information provided is true to the best of my knowledge."
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etDisease" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/tvDisease"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40px"
-        android:layout_marginTop="50px"
-        android:layout_marginRight="30px"
-        android:text="Are you suffering from any disease?"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <RadioGroup
-        android:id="@+id/rbDisease"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30px"
-        android:layout_marginTop="10px"
-        android:layout_marginRight="30px"
-        android:checkedButton="@id/rbNo">
-
-        <RadioButton
-            android:id="@+id/rbYes"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvDisclaimer"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="Yes"
-            android:textSize="16sp" />
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="14dp"
+            android:text="Disclaimer : The information shared by you is protected from any unauthorized access and against unlawful processing."
+            android:textAlignment="textStart"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cbDeclaration" />
 
-        <RadioButton
-            android:id="@+id/rbNo"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnReg"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="No"
-            android:textSize="16sp" />
+            android:layout_marginTop="10dp"
+            android:text="register"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:typeface="serif"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDisclaimer" />
 
-    </RadioGroup>
-
-    <EditText
-        android:id="@+id/etDisease"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30px"
-        android:layout_marginRight="30px"
-        android:ems="10"
-        android:hint="Please mention the disease"
-        android:inputType="textPersonName"
-        android:textColor="@color/colorAccent"
-        android:textColorHint="@color/colorPrimary"
-        android:textSize="16sp" />
-
-    <CheckBox
-        android:id="@+id/cbDeclaration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30px"
-        android:layout_marginTop="80px"
-        android:layout_marginRight="30px"
-        android:onClick="onCheckBoxClicked"
-        android:text="I hereby declare that the information provided is true to the best of my knowledge."
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tvDisclaimer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30px"
-        android:layout_marginTop="80px"
-        android:layout_marginRight="30px"
-        android:text="Disclaimer : The information shared by you is protected from any unauthorized access and against unlawful processing." />
-
-    <Button
-        android:id="@+id/btnReg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="40sp"
-        android:text="register"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:typeface="serif" />
-
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
