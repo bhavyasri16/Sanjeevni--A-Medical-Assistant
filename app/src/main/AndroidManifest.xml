@@ -13,28 +13,43 @@
         android:roundIcon="@mipmap/abc"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".fragment.ProfileView"
-            android:parentActivityName=".activities.WelcomeActivity"></activity>
+        <activity android:name=".activities.searchDoctor.searchMain"
+            android:parentActivityName=".activities.WelcomeActivity"
+            android:windowSoftInputMode="stateVisible">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.WelcomeActivity" />
+        </activity>
+        <activity
+            android:name=".fragment.ProfileView"
+            android:parentActivityName=".activities.WelcomeActivity" />
         <activity
             android:name=".activities.ui.login.Verification_phone"
             android:parentActivityName=".activities.ui.login.RegisterActivity" />
-        <activity android:name=".activities.bloodBank.bbDonate"
+        <activity
+            android:name=".activities.bloodBank.bbDonate"
             android:parentActivityName=".activities.bloodBank.BloodBank"
             android:windowSoftInputMode="stateVisible">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.bloodBank.BloodBank"
-                />
+                android:value=".activities.bloodBank.BloodBank" />
         </activity>
-        <activity android:name=".activities.bloodBank.bbRegister"
+        <activity
+            android:name=".activities.bloodBank.bbRegister"
             android:parentActivityName=".activities.bloodBank.BloodBank"
             android:windowSoftInputMode="stateVisible">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.bloodBank.BloodBank"
-                />
+                android:value=".activities.bloodBank.BloodBank" />
         </activity>
-        <activity android:name=".activities.bloodBank.BloodBank" />
+        <activity
+            android:name=".activities.bloodBank.BloodBank"
+            android:parentActivityName=".activities.WelcomeActivity"
+            android:windowSoftInputMode="stateVisible">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.WelcomeActivity" />
+        </activity>
         <activity
             android:name=".activities.ui.login.LoginActivity"
             android:parentActivityName=".activities.WelcomeActivity" />
@@ -47,6 +62,7 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -54,20 +70,6 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name" />
-        <activity
-            android:name=".activities.SearchActivity"
-            android:parentActivityName=".activities.WelcomeActivity"
-            android:theme="@style/HiddenTitleTheme" />
-        <activity android:name=".activities.SearchResultActivity" />
-        <activity android:name=".activities.AddReviewActivity" />
-        <activity
-            android:name=".activities.TipsFullActivity"
-            android:label="@string/title_activity_test"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.DiseaseFullActivity"
-            android:label="@string/title_activity_disease_full"
-            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

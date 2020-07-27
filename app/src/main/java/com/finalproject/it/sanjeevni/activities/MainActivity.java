@@ -11,9 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.finalproject.it.sanjeevni.R;
-import com.finalproject.it.sanjeevni.fragment.DiseaseFragment;
-import com.finalproject.it.sanjeevni.fragment.SearchFragment;
-import com.finalproject.it.sanjeevni.fragment.TipsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,9 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new SearchFragment());
-        adapter.addFrag(new TipsFragment());
-        adapter.addFrag(new DiseaseFragment());
         viewPager.setAdapter(adapter);
     }
 
