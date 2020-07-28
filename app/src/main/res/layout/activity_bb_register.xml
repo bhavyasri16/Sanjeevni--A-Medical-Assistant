@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/splash_bg_color"
+    android:fillViewport="true"
     tools:context=".activities.bloodBank.bbRegister">
 
     <androidx.constraintlayout.widget.ConstraintLayout

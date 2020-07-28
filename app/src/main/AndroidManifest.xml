@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.ui.login.Approve_Requests"
-            android:parentActivityName=".activities.WelcomeActivity"></activity>
+            android:parentActivityName=".activities.WelcomeActivity"/>
         <activity android:name=".activities.ui.login.DoctorRegister" />
         <activity
             android:name=".fragment.ProfileView"
@@ -22,10 +22,8 @@
         <activity android:name=".activities.searchDoctor.searchMain"
             android:parentActivityName=".activities.WelcomeActivity"
             android:windowSoftInputMode="stateVisible">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.WelcomeActivity" />
         </activity>
+        <activity
             android:name=".activities.ui.login.Verification_phone"
             android:parentActivityName=".activities.ui.login.RegisterActivity" />
         <activity
