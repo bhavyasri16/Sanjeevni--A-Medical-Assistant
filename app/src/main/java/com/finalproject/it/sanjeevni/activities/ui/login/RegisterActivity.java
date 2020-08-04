@@ -51,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Spinner state_spinner,city_spinner;
     private ArrayAdapter<State> stateArrayAdapter;
     private ArrayAdapter<City> cityArrayAdapter;
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{5,}" + "$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{6,}" + "$");
     private static final Pattern PHONE_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{10,}" + "$");
     private FirebaseAuth mAuth;
     private ProgressBar loadingProgressBar;

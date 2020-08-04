@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{5,}" + "$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{6,}" + "$");
     private FirebaseAuth mAuth;
     private Button loginButton,register_Button,forgotPasswordButton;
     private EditText usern,pass;
@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                         {
                             Toast.makeText(getBaseContext(),"Login Successfull !",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getBaseContext(), WelcomeActivity.class));
+                            finish();
                         }
                         else
                         {

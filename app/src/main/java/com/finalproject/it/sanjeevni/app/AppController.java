@@ -5,11 +5,14 @@ package com.finalproject.it.sanjeevni.app;
  */
 
 import android.app.Application;
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.finalproject.it.sanjeevni.activities.NotificationHandler;
+import com.onesignal.OneSignal;
 
 public class AppController extends Application {
 
@@ -18,11 +21,25 @@ public class AppController extends Application {
     private RequestQueue mRequestQueue;
 
     private static AppController mInstance;
+    private static Context context;
+
+    public static Context getContext() {
+        return context;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+            context = getApplicationContext();
+            //MyNotificationOpenedHandler : This will be called when a notification is tapped on.
+            //MyNotificationReceivedHandler : This will be called when a notification is received while your app is running.
+            OneSignal.startInit(this)
+                    .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                    .unsubscribeWhenNotificationsAreDisabled(true)
+                    .setNotificationOpenedHandler(new NotificationHandler(this))
+                    .init();
+
     }
 
     public static synchronized AppController getInstance() {

@@ -18,7 +18,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -103,9 +106,10 @@ public class DoctorRegister extends AppCompatActivity {
         add_logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent opengalleryintent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-                startActivityForResult(opengalleryintent,1000);
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, 1000);
             }
 
         });
@@ -161,7 +165,7 @@ public class DoctorRegister extends AppCompatActivity {
                 mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Toast.makeText(getBaseContext(),"authntication done",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(),"authentication done",Toast.LENGTH_SHORT).show();
                         if(task.isSuccessful())
                         {
                             FirebaseUser fuser=mAuth.getCurrentUser();
@@ -295,9 +299,20 @@ public class DoctorRegister extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1000 && resultCode == RESULT_OK && data != null) {
-            imageUri = data.getData();
-            imageView.setImageURI(imageUri);
-            logo_done=true;
+            //imageUri = data.getData();
+            CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setAspectRatio(1,1)
+                    .start(this);
+        }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if(resultCode== RESULT_OK)
+            {
+                imageUri=result.getUri();
+                imageView.setImageURI(imageUri);
+                logo_done=true;
+            }
         }
     }
 

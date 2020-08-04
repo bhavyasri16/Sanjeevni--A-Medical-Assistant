@@ -4,6 +4,12 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".app.AppController"
@@ -13,16 +19,18 @@
         android:roundIcon="@mipmap/abc"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ui.login.Approve_Requests"
-            android:parentActivityName=".activities.WelcomeActivity"/>
+        <activity android:name=".activities.bloodBank.BloodDonationRequests"/>
+        <activity
+            android:name=".activities.ui.login.Approve_Requests"
+            android:parentActivityName=".activities.WelcomeActivity" />
         <activity android:name=".activities.ui.login.DoctorRegister" />
         <activity
             android:name=".fragment.ProfileView"
             android:parentActivityName=".activities.WelcomeActivity" />
-        <activity android:name=".activities.searchDoctor.searchMain"
+        <activity
+            android:name=".activities.searchDoctor.searchMain"
             android:parentActivityName=".activities.WelcomeActivity"
-            android:windowSoftInputMode="stateVisible">
-        </activity>
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.ui.login.Verification_phone"
             android:parentActivityName=".activities.ui.login.RegisterActivity" />
@@ -70,6 +78,8 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name" />
+        <meta-data android:name="com.onesignal.NotificationOpened.DEFAULT" android:value="DISABLE" />
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"/>
     </application>
 
 </manifest>

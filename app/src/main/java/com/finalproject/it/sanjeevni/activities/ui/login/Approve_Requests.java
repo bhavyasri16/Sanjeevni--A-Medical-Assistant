@@ -16,6 +16,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.activities.WelcomeActivity;
 import com.finalproject.it.sanjeevni.fragment.ProfileView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -83,7 +84,7 @@ public class Approve_Requests extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.logout_btn) {
             FirebaseAuth.getInstance().signOut();
-            recreate();
+            startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
         }
         else if(id==R.id.refresh){
             recreate();

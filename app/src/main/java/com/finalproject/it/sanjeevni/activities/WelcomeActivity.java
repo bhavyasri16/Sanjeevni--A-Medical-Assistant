@@ -5,16 +5,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.Spanned;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -40,12 +37,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.onesignal.OneSignal;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -69,6 +63,13 @@ public class WelcomeActivity extends AppCompatActivity {
         /*if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }*/
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .setNotificationOpenedHandler(new NotificationHandler(this))
+                .init();
+
+
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_welcome);
         fstore=FirebaseFirestore.getInstance();
@@ -79,8 +80,8 @@ public class WelcomeActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         if(document.getData().containsValue(mAuth.getCurrentUser().getUid())) {
-                            getStarted.setText("Check Pending Requests");
                             identify_operation=1;
+                            getStarted.setText("Check Pending Requests");
                         }
                     }
                 } else {
@@ -114,9 +115,11 @@ public class WelcomeActivity extends AppCompatActivity {
 
         if(mAuth.getCurrentUser()!=null)
         {
-
-            getStarted.setText("Click To Proceed");
-            identify_operation=3;
+            if(identify_operation!=1) {
+                identify_operation = 3;
+                getStarted.setText("Click To Proceed");
+            }
+            OneSignal.sendTag("User_Type","regular");
         }
         else
         {
@@ -126,7 +129,7 @@ public class WelcomeActivity extends AppCompatActivity {
         getStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(identify_operation==1)
+                if(identify_operation==1 )
                 {
                     startActivity(new Intent(getBaseContext(), Approve_Requests.class));
                 }
@@ -143,6 +146,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void addBottomDots(int currentPage) {
@@ -280,7 +284,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         } else if (position == 1) {
                             startActivity(new Intent(WelcomeActivity.this, BloodBank.class));
                         } else if (position == 2) {
-
+                           // startActivity(new Intent(WelcomeActivity.this,Main2Activity.class));
                         } else {
 
                         }}
@@ -307,4 +311,6 @@ public class WelcomeActivity extends AppCompatActivity {
             container.removeView(view);
         }
     }
+
+
 }

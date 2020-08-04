@@ -1,8 +1,11 @@
 package com.finalproject.it.sanjeevni.activities.bloodBank;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.ArrayMap;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,20 +20,26 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.finalproject.it.sanjeevni.R;
 import com.finalproject.it.sanjeevni.activities.WelcomeActivity;
-import com.finalproject.it.sanjeevni.activities.ui.login.LoginActivity;
 import com.finalproject.it.sanjeevni.fragment.ProfileView;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.onesignal.OneSignal;
 
-import java.sql.Array;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,20 +54,40 @@ public class bbRegister extends AppCompatActivity {
     CheckBox cbDeclaration;
     private FirebaseAuth mAuth;
     private FirebaseFirestore fstore;
+    private int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bb_register);
 
-        inputBGroup = (TextInputLayout)findViewById(R.id.inputBGroup);
-        inputID = (TextInputLayout)findViewById(R.id.inputID);
-        etDisease = (EditText)findViewById(R.id.etDisease);
-        btnReg = (Button)findViewById(R.id.btnReg);
-        rbDisease = (RadioGroup)findViewById(R.id.rbDisease);
-        rbYes = (RadioButton)findViewById(R.id.rbYes);
-        rbNo = (RadioButton)findViewById(R.id.rbNo);
-        cbDeclaration = (CheckBox)findViewById(R.id.cbDeclaration);
+        mAuth=FirebaseAuth.getInstance();
+        fstore=FirebaseFirestore.getInstance();
+
+        index=0;
+        final DocumentReference docref=fstore.collection("User_Type").document("bloodDonors");
+        docref.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                Map<String,Object> thisData= value.getData();
+                if(thisData.containsKey("donorCount")) {
+                    index= Integer.parseInt(thisData.get("donorCount").toString());
+                    Log.d("TAG", "INDEX VALUE "+index);
+                    return;
+                }
+                else
+                    index=0;
+            }
+        });
+
+        inputBGroup = findViewById(R.id.inputBGroup);
+        inputID = findViewById(R.id.inputID);
+        etDisease = findViewById(R.id.etDisease);
+        btnReg = findViewById(R.id.btnReg);
+        rbDisease = findViewById(R.id.rbDisease);
+        rbYes = findViewById(R.id.rbYes);
+        rbNo = findViewById(R.id.rbNo);
+        cbDeclaration = findViewById(R.id.cbDeclaration);
 
         //adding back button in Action Bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -82,8 +111,6 @@ public class bbRegister extends AppCompatActivity {
                     return;
                 }
                 RadioButton sel= findViewById(rbDisease.getCheckedRadioButtonId());
-                mAuth=FirebaseAuth.getInstance();
-                fstore=FirebaseFirestore.getInstance();
                 final String userID=mAuth.getCurrentUser().getUid();
                 DocumentReference docref= fstore.collection("userDetails").document(userID);
                 Map<String,Object> user = new HashMap<>();
@@ -95,11 +122,35 @@ public class bbRegister extends AppCompatActivity {
                 docref.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+
+                        Log.d("TAG", "INDEX VALUE RECIEVED "+index);
+                        DocumentReference docref2=fstore.collection("User_Type").document("bloodDonors");
+                        Map<String,Object> tempMap= new ArrayMap<>();
+                        tempMap.put("donor_"+index,userID);
+                        docref2.update(tempMap).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e("bbRegister","Error : "+e.getMessage());
+                                return;
+                            }
+                        });
+
+                        Map<String, Object> indexadd = new ArrayMap<>();
+                        indexadd.put("donorCount", index + 1);
+                        docref2.update(indexadd).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("TAG","updateRequestIndexError: : "+e.getMessage());
+                            }
+                        });
+
+                        OneSignal.sendTag("User_Type","donor");
                         Toast toast = Toast.makeText(getApplicationContext(),"Registration Successful !!",Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER,0,5);
                         toast.show();
                         startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
                         finish();
+
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -188,7 +239,7 @@ public class bbRegister extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.logout_btn) {
             FirebaseAuth.getInstance().signOut();
-            recreate();
+            startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
         }
         else if(id==R.id.refresh){
             recreate();
@@ -197,5 +248,39 @@ public class bbRegister extends AppCompatActivity {
             startActivity(new Intent(getBaseContext(), ProfileView.class));
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateRequestIndex(final String collectionName,final String documentName, String fieldName) {
+        index = getRequestIndex(collectionName,documentName,fieldName);
+        DocumentReference docref = fstore.collection(collectionName).document(documentName);
+        Map<String, Object> indexadd = new ArrayMap<>();
+        indexadd.put(fieldName, index + 1);
+        docref.update(indexadd).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("TAG","updateRequestIndexError:"+collectionName+"/"+documentName+" : "+e.getMessage());
+            }
+        });
+    }
+
+    //Get the value of index field in a document
+    private int getRequestIndex(final String collectionName,final String documentName,final String fieldName) {
+        index=0;
+        final DocumentReference docref=fstore.collection(collectionName).document(documentName);
+        docref.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                Map<String,Object> thisData= value.getData();
+                if(thisData.containsKey(fieldName)) {
+                    index = Integer.parseInt(thisData.get(fieldName).toString());
+                    Log.d("TAG", "INDEX VALUE "+index);
+                    return;
+                }
+                else
+                    index=0;
+            }
+        });
+
+        return index;
     }
 }
