@@ -6,6 +6,7 @@
     <color name="colorAccent">#560027</color>
     <color name="colorAccent1">#FF4081</color>
     <color name="splash_bg_color">#fce4ec</color>
+    <color name="white">#FFFFFF</color>
 
 
     <!-- dots inactive colors -->

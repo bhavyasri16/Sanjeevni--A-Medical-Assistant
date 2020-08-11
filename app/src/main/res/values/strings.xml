@@ -152,6 +152,7 @@
     <string name="confirmation"><b>Confirmation</b></string>
     <string name="confirm__request_message">Are you sure you want to Register as a Doctor/Hospital ?</string>
     <string name="reset_password"><b>Reset Password</b></string>
+    <string name="deafult_List_msg">No Entry Available to Display !!</string>
 
     <!--resource for dr.search-->
     <string-array name="states">

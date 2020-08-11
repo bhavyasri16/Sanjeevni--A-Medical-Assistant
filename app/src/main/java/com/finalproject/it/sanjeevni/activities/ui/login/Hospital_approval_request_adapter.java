@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class My_custom_adapter extends ArrayAdapter {
+public class Hospital_approval_request_adapter extends ArrayAdapter {
 
     private static final String TAG = "Custom_Adapter";
     private FirebaseFirestore fstore;
@@ -38,7 +38,7 @@ public class My_custom_adapter extends ArrayAdapter {
     private StorageReference storeref;
     View convertView;
 
-    public My_custom_adapter(@NonNull Context context,int resourceId, List<HashMap<String,String>> hashMap) {
+    public Hospital_approval_request_adapter(@NonNull Context context, List<HashMap<String,String>> hashMap) {
         super(context, R.layout.list_view_items, hashMap);
         this.context=context;
     }

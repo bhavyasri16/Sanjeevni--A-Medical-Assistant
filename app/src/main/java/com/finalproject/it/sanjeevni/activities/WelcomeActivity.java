@@ -19,6 +19,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +28,8 @@ import android.widget.Toast;
 
 import com.finalproject.it.sanjeevni.R;
 import com.finalproject.it.sanjeevni.activities.bloodBank.BloodBank;
+import com.finalproject.it.sanjeevni.activities.bloodBank.BloodDonationRequests;
+import com.finalproject.it.sanjeevni.activities.bloodBank.CurrentUserRequests;
 import com.finalproject.it.sanjeevni.activities.ui.login.Approve_Requests;
 import com.finalproject.it.sanjeevni.activities.ui.login.LoginActivity;
 import com.finalproject.it.sanjeevni.fragment.ProfileView;
@@ -33,6 +37,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -54,6 +59,11 @@ public class WelcomeActivity extends AppCompatActivity {
     private LayoutInflater inflater;
     private List<String> list;
     private int identify_operation=0;
+    private FloatingActionButton mainbtn,allreq,userreq;
+    private TextView allreqText,userreqText;
+    private Boolean isOpen;
+    private Animation fab_open,fab_close,fab_rotate;
+    private int flag=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +103,11 @@ public class WelcomeActivity extends AppCompatActivity {
         viewPager =  findViewById(R.id.view_pager);
         dotsLayout = findViewById(R.id.layoutDots);
         getStarted = findViewById(R.id.btn_get_started);
+        mainbtn=findViewById(R.id.main_add_fab);
+        allreq=findViewById(R.id.fab1);
+        userreq=findViewById(R.id.fab2);
+        allreqText=findViewById(R.id.all_req);
+        userreqText=findViewById(R.id.user_req);
 
         // layouts of all welcome sliders
         // add few more layouts if you want
@@ -120,6 +135,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 getStarted.setText("Click To Proceed");
             }
             OneSignal.sendTag("User_Type","regular");
+            OneSignal.sendTag("Email",mAuth.getCurrentUser().getEmail());
         }
         else
         {
@@ -144,6 +160,55 @@ public class WelcomeActivity extends AppCompatActivity {
                     toast.show();
                 }
 
+            }
+        });
+
+
+        isOpen=false;
+
+        fab_open= AnimationUtils.loadAnimation(WelcomeActivity.this,R.anim.fab_open);
+        fab_close= AnimationUtils.loadAnimation(WelcomeActivity.this,R.anim.fab_close);
+        fab_rotate=AnimationUtils.loadAnimation(WelcomeActivity.this,R.anim.fab_rotate);
+
+        mainbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(isOpen){
+
+                    mainbtn.startAnimation(fab_rotate);
+                    allreq.startAnimation(fab_close);
+                    userreq.startAnimation(fab_close);
+                    allreqText.startAnimation(fab_close);
+                    userreqText.startAnimation(fab_close);
+
+                    isOpen=false;
+                }else{
+
+                    mainbtn.startAnimation(fab_rotate);
+                    allreq.startAnimation(fab_open);
+                    userreq.startAnimation(fab_open);
+                    allreqText.startAnimation(fab_open);
+                    userreqText.startAnimation(fab_open);
+
+                    isOpen=true;
+                }
+            }
+        });
+
+        allreq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), BloodDonationRequests.class));
+                finish();
+            }
+        });
+
+        userreq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), CurrentUserRequests.class));
+                finish();
             }
         });
 

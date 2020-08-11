@@ -2,25 +2,16 @@ package com.finalproject.it.sanjeevni.activities.ui.login;
 
 import android.app.DatePickerDialog;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-//import android.graphics.drawable.AdaptiveIconDrawable;
 import android.content.Intent;
 import android.os.Bundle;
 import com.finalproject.it.sanjeevni.R;
-import com.finalproject.it.sanjeevni.fragment.Confirm_dr_dialog;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-//import com.google.firebase.auth.FirebaseAuthRegistrar;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import android.util.Log;
 import android.util.Patterns;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,7 +23,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,9 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ArrayAdapter<City> cityArrayAdapter;
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{6,}" + "$");
     private static final Pattern PHONE_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{10,}" + "$");
-    private FirebaseAuth mAuth;
     private ProgressBar loadingProgressBar;
-    private FirebaseFirestore fstore;
     private String stateSelected,citySelected;
     private StateCity_List scl= new StateCity_List();
     private int stateID=0,cityID=0;
@@ -111,9 +99,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         state_spinner.setOnItemSelectedListener(state_listener);
         city_spinner.setOnItemSelectedListener(city_listener);
-
-        mAuth = FirebaseAuth.getInstance();
-        fstore=FirebaseFirestore.getInstance();
 
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener mydate = new DatePickerDialog.OnDateSetListener() {
@@ -329,7 +314,7 @@ public class RegisterActivity extends AppCompatActivity {
             password.setError("Field can't be empty");
             return false;
         } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
-            password.setError("Min. 5 characters required(No Spaces Allowed)");
+            password.setError("Min. 6 characters required(No Spaces Allowed)");
             return false;
         } else {
             password.setError(null);

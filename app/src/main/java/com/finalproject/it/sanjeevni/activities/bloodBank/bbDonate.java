@@ -62,7 +62,7 @@ public class bbDonate extends AppCompatActivity {
     private FirebaseFirestore fstore;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final String TAG="bbDonateActivity";
-    private static int requestNoForThisUser=0,requestIndex=0;
+    private static int requestNoForThisUser=0,requestIndex=0,activeRequests=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,9 +102,9 @@ public class bbDonate extends AppCompatActivity {
 
                     if (value.contains("IndexCount")) {
                         requestIndex = Integer.parseInt(value.get("IndexCount").toString());
-                        return;
-                    } else
-                        requestIndex = 0;
+                    }
+                    if (value.contains("ActiveRequests"))
+                        activeRequests=Integer.parseInt(value.get("ActiveRequests").toString());
                 }
             }
         });
@@ -163,9 +163,8 @@ public class bbDonate extends AppCompatActivity {
                 DocumentReference docref2 = fstore.collection("DonationRequestList").document("01_RequestIndex");
                 Map<String, Object> indexadd = new ArrayMap<>();
                 indexadd.put("IndexCount", requestIndex + 1);
-                if(requestIndex==0)
-                    docref2.set(indexadd);
-                docref2.update(indexadd).addOnFailureListener(new OnFailureListener() {
+                indexadd.put("ActiveRequests",activeRequests+1);
+                docref2.set(indexadd).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e(TAG,"updateRequestIndexError: "+e.getMessage());
@@ -191,7 +190,7 @@ public class bbDonate extends AppCompatActivity {
     }
 
     private void getContacts(View view) {
-        final List<HashMap<String,String>> contactList = new ArrayList<>();
+        final List<HashMap<String,Object>> contactList = new ArrayList<>();
         fstore.collection("User_Type").document("bloodDonors").addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot doc, @Nullable FirebaseFirestoreException error) {
@@ -205,7 +204,7 @@ public class bbDonate extends AppCompatActivity {
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if(task.isSuccessful()){
                                 DocumentSnapshot donorData=task.getResult();
-                                HashMap<String,String> thisdonor=new HashMap<>();
+                                HashMap<String,Object> thisdonor=new HashMap<>();
                                 thisdonor.put("name",donorData.getString("firstName"));
                                 thisdonor.put("email",donorData.getString("emailID"));
                                 thisdonor.put("userID",docid);
@@ -213,13 +212,13 @@ public class bbDonate extends AppCompatActivity {
                                 thisdonor.put("bgroup",donorData.getString("blood_group"));
                                 thisdonor.put("city",donorData.getString("city"));
                                 contactList.add(thisdonor);
-                                if(thisdonor.get("bgroup").equals(BGroup) && (thisdonor.get("city")).equalsIgnoreCase(city))
+                                if(thisdonor.get("bgroup").equals(BGroup) && (thisdonor.get("city").toString()).equalsIgnoreCase(city))
                                 {
                                     message = "Hello " + thisdonor.get("name") + " , If you are willing to donate " + BGroup + " in the city " + thisdonor.get("city")
                                             + ", Please Contact " + name + "( " + contact + " ) URGENTLY. Regards Sanjeevni Team.";
                                     try {
                                         SmsManager smsManager = SmsManager.getDefault();
-                                        smsManager.sendTextMessage(thisdonor.get("contact"), null, message, null, null);
+                                        smsManager.sendTextMessage(thisdonor.get("contact").toString(), null, message, null, null);
                                         //Toast.makeText(getApplicationContext(),"messg sent to "+thisdonor.get("name"),Toast.LENGTH_SHORT).show();
                                     } catch (Exception e) {
                                         Toast.makeText(getApplicationContext(), "Error in Sending Message : " + e, Toast.LENGTH_SHORT).show();
@@ -334,51 +333,6 @@ public class bbDonate extends AppCompatActivity {
             }
         }
     }
-
-
-/*
-    private void checkPendingRequest(String userID) {
-        int tempIndex=getRequestIndex(userID);
-        if(tempIndex==0)
-
-
-
-
-        fstore.collection("DonationRequestList/"+userID+"Blood_donor_requests").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for (QueryDocumentSnapshot document : task.getResult())
-                            {
-
-                            }
-                        }
-                    }
-                });
-                */
-
-
-
-
-
-                /*.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    QuerySnapshot document = task.getResult();
-                    if (!document.isEmpty()) {
-                        if(document.getDocuments().contains(mAuth.getCurrentUser().getUid())) {
-                        }
-                    }
-                } else {
-                    Log.d("TAG", "Error getting documents: ", task.getException());
-                }
-            }
-        });
-}*/
-
-
 
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(bbDonate.this, Manifest.permission.SEND_SMS);

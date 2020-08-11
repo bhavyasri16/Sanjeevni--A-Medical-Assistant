@@ -7,28 +7,30 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.finalproject.it.sanjeevni.R;
 import com.finalproject.it.sanjeevni.fragment.ProfileView;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
-import java.util.Map;
-
 public class BloodBank extends AppCompatActivity {
-    Button btnRegAs, btnDonate;
+    private  Button btnRegAs, btnDonate, btnlist;
+    private FloatingActionButton mainbtn,allreq,userreq;
+    private TextView allreqText,userreqText;
     private FirebaseAuth mAuth;
     private FirebaseFirestore fstore;
+    private Boolean isOpen;
+    private Animation fab_open,fab_close,fab_rotate;
     private int flag=0;
 
     @Override
@@ -41,13 +43,19 @@ public class BloodBank extends AppCompatActivity {
 
         btnRegAs = (Button)findViewById(R.id.btnRegAs);
         btnDonate = (Button)findViewById(R.id.btnDonate);
+        btnlist=findViewById(R.id.btnList);
+        mainbtn=findViewById(R.id.main_add_fab);
+        allreq=findViewById(R.id.fab1);
+        userreq=findViewById(R.id.fab2);
+        allreqText=findViewById(R.id.all_req);
+        userreqText=findViewById(R.id.user_req);
 
         //adding back button in Action Bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Sanjeevni");
         getSupportActionBar().setSubtitle("Blood Bank");
 
-        fstore.collection("User_Type").document("bloodDonors").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        /*fstore.collection("User_Type").document("bloodDonors").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -61,6 +69,54 @@ public class BloodBank extends AppCompatActivity {
                 } else {
                     Log.d("TAG", "Error getting documents: "+ task.getException());
                 }
+            }
+        });*/
+
+        isOpen=false;
+
+        fab_open= AnimationUtils.loadAnimation(BloodBank.this,R.anim.fab_open);
+        fab_close= AnimationUtils.loadAnimation(BloodBank.this,R.anim.fab_close);
+        fab_rotate=AnimationUtils.loadAnimation(BloodBank.this,R.anim.fab_rotate);
+
+        mainbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(isOpen){
+
+                    mainbtn.startAnimation(fab_rotate);
+                    allreq.startAnimation(fab_close);
+                    userreq.startAnimation(fab_close);
+                    allreqText.startAnimation(fab_close);
+                    userreqText.startAnimation(fab_close);
+
+                    isOpen=false;
+                }else{
+
+                    mainbtn.startAnimation(fab_rotate);
+                    allreq.startAnimation(fab_open);
+                    userreq.startAnimation(fab_open);
+                    allreqText.startAnimation(fab_open);
+                    userreqText.startAnimation(fab_open);
+
+                    isOpen=true;
+                }
+            }
+        });
+
+        allreq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(BloodBank.this,BloodDonationRequests.class));
+                finish();
+            }
+        });
+
+        userreq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(BloodBank.this,CurrentUserRequests.class));
+                finish();
             }
         });
 
@@ -88,6 +144,14 @@ public class BloodBank extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(com.finalproject.it.sanjeevni.activities.bloodBank.BloodBank.this, com.finalproject.it.sanjeevni.activities.bloodBank.bbDonate.class);
                 startActivity(intent);
+            }
+        });
+
+        btnlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),BloodDonationRequests.class));
+                finish();
             }
         });
     }

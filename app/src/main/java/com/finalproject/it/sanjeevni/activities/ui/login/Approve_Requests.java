@@ -1,19 +1,13 @@
 package com.finalproject.it.sanjeevni.activities.ui.login;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import com.finalproject.it.sanjeevni.R;
 import com.finalproject.it.sanjeevni.activities.WelcomeActivity;
@@ -48,8 +42,6 @@ public class Approve_Requests extends AppCompatActivity {
         fAuth=FirebaseAuth.getInstance();
         fStore=FirebaseFirestore.getInstance();
 
-        final String[] from={"Name","City","Contact","Email","userID"};
-        final int[] to={R.id.name,R.id.city,R.id.phone,R.id.email};
         listView=findViewById(R.id.list_view);
 
         if(fAuth.getCurrentUser()!=null) {
@@ -66,7 +58,7 @@ public class Approve_Requests extends AppCompatActivity {
                         temp.put("userID", snapshot.getId());
                         display_list.add(temp);
                     }
-                    My_custom_adapter adapter = new My_custom_adapter(getBaseContext(), R.layout.list_view_items, display_list);
+                    Hospital_approval_request_adapter adapter = new Hospital_approval_request_adapter(getBaseContext(), display_list);
                     adapter.notifyDataSetChanged();
                     listView.setAdapter(adapter);
                 }
@@ -85,6 +77,7 @@ public class Approve_Requests extends AppCompatActivity {
         if (id == R.id.logout_btn) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
+            finish();
         }
         else if(id==R.id.refresh){
             recreate();
