@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Sanjeevni</string>
 
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="help">Simply add, edit and delete your reminders.</string>
+
 
     <string name="welcome1_head">Search</string>
     <string name="welcome2_head">Blood Bank</string>
