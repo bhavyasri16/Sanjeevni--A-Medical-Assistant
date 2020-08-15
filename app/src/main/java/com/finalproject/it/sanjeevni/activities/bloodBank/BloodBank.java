@@ -17,13 +17,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.activities.BaseActivity;
 import com.finalproject.it.sanjeevni.fragment.ProfileView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
-public class BloodBank extends AppCompatActivity {
+public class BloodBank extends BaseActivity {
     private  Button btnRegAs, btnDonate, btnlist;
     private FloatingActionButton mainbtn,allreq,userreq;
     private TextView allreqText,userreqText;
@@ -41,8 +42,8 @@ public class BloodBank extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         fstore=FirebaseFirestore.getInstance();
 
-        btnRegAs = (Button)findViewById(R.id.btnRegAs);
-        btnDonate = (Button)findViewById(R.id.btnDonate);
+        btnRegAs = findViewById(R.id.btnRegAs);
+        btnDonate = findViewById(R.id.btnDonate);
         btnlist=findViewById(R.id.btnList);
         mainbtn=findViewById(R.id.main_add_fab);
         allreq=findViewById(R.id.fab1);
@@ -53,7 +54,7 @@ public class BloodBank extends AppCompatActivity {
         //adding back button in Action Bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Sanjeevni");
-        getSupportActionBar().setSubtitle("Blood Bank");
+        getSupportActionBar().setSubtitle("Blood Connect");
 
         /*fstore.collection("User_Type").document("bloodDonors").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -155,6 +156,8 @@ public class BloodBank extends AppCompatActivity {
             }
         });
     }
+
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
             getMenuInflater().inflate(R.menu.mymenu, menu);
@@ -176,4 +179,6 @@ public class BloodBank extends AppCompatActivity {
             }
             return super.onOptionsItemSelected(item);
     }
+
+     */
 }

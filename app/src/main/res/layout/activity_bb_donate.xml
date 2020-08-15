@@ -124,10 +124,30 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:hint="City you are in?"
+                android:enabled="false"
                 android:singleLine="true"
                 android:textColor="@color/colorAccent"
                 android:textColorHint="@color/colorPrimary" />
+
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onSelectCity"
+            android:singleLine="true"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorPrimary"
+            android:layout_marginStart="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginRight="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchBgroup"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputIDProof"

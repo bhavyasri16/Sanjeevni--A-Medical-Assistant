@@ -3,11 +3,13 @@ package com.finalproject.it.sanjeevni.activities.bloodBank;
 import java.util.Comparator;
 import java.util.HashMap;
 
-public class MyCustomComparator implements Comparator<HashMap<String, String>> {
+public class MyCustomComparator implements Comparator<HashMap<String, Object>> {
     @Override
-    public int compare(HashMap<String, String> lhs,
-                       HashMap<String, String> rhs) {
+    public int compare(HashMap<String, Object> lhs,
+                       HashMap<String, Object> rhs) {
 
-        return lhs.get("Time").compareTo(rhs.get("Time"));
+        return lhs.get("Time").toString().compareTo(rhs.get("Time").toString());
     }
+
+
 }

@@ -8,11 +8,128 @@
     tools:context=".activities.bloodBank.BloodDonationRequests">
 
     <ListView
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/list_view"
         android:visibility="invisible"
-        />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-28dp">
+
+
+
+    </ListView>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/container_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.584"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/filters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_marginVertical="16dp"
+            android:layout_marginStart="40dp"
+            android:clickable="true"
+            android:src="@drawable/ic_filter_list_black_24dp"
+            android:text="Filter Data"
+            app:backgroundTint="@color/colorAccent"
+            app:fabSize="normal"
+            app:icon="@drawable/ic_filter_list_black_24dp"
+            app:rippleColor="@color/colorPrimary" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/byBG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:background="?android:attr/fastScrollPreviewBackgroundRight"
+        android:enabled="false"
+        android:src="@drawable/ic_filter_bg"
+        android:text="By Blood Group"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/container_layout"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/byCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:enabled="false"
+        android:src="@drawable/ic_filter_city"
+        android:text="By City"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/byBG"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/clearFilters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:enabled="false"
+        android:src="@drawable/clear_filters"
+        android:text="Clear Filters"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/byCity"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/clear_filterText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:background="?android:attr/fastScrollPreviewBackgroundLeft"
+        android:paddingVertical="5dp"
+        android:text="Clear Filters"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/clearFilters"
+        app:layout_constraintStart_toEndOf="@+id/clearFilters"
+        app:layout_constraintTop_toTopOf="@+id/clearFilters" />
+
+    <TextView
+        android:id="@+id/byBgText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:background="?android:attr/fastScrollPreviewBackgroundLeft"
+        android:paddingVertical="5dp"
+        android:text="By Blood Group"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/byBG"
+        app:layout_constraintStart_toEndOf="@+id/byBG"
+        app:layout_constraintTop_toTopOf="@+id/byBG" />
+
+    <TextView
+        android:id="@+id/byCityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:background="?android:attr/fastScrollPreviewBackgroundLeft"
+        android:paddingVertical="5dp"
+        android:text="By City"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/byCity"
+        app:layout_constraintStart_toEndOf="@+id/byCity"
+        app:layout_constraintTop_toTopOf="@+id/byCity" />
 
     <TextView
         android:id="@+id/default_msg"
@@ -23,10 +140,12 @@
         android:textSize="20dp"
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
+
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

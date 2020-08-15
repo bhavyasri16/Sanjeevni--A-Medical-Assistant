@@ -46,7 +46,7 @@ import com.onesignal.OneSignal;
 
 import java.util.List;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends BaseActivity {
 
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
@@ -134,7 +134,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 identify_operation = 3;
                 getStarted.setText("Click To Proceed");
             }
-            OneSignal.sendTag("User_Type","regular");
+
             OneSignal.sendTag("Email",mAuth.getCurrentUser().getEmail());
         }
         else
@@ -163,54 +163,57 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
+        if(mAuth.getCurrentUser()==null) {
+            mainbtn.setVisibility(View.INVISIBLE);
+            mainbtn.setEnabled(false);
+        }else {
 
-        isOpen=false;
+            isOpen = false;
 
-        fab_open= AnimationUtils.loadAnimation(WelcomeActivity.this,R.anim.fab_open);
-        fab_close= AnimationUtils.loadAnimation(WelcomeActivity.this,R.anim.fab_close);
-        fab_rotate=AnimationUtils.loadAnimation(WelcomeActivity.this,R.anim.fab_rotate);
+            fab_open = AnimationUtils.loadAnimation(WelcomeActivity.this, R.anim.fab_open);
+            fab_close = AnimationUtils.loadAnimation(WelcomeActivity.this, R.anim.fab_close);
+            fab_rotate = AnimationUtils.loadAnimation(WelcomeActivity.this, R.anim.fab_rotate);
 
-        mainbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            mainbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                if(isOpen){
+                    if (isOpen) {
 
-                    mainbtn.startAnimation(fab_rotate);
-                    allreq.startAnimation(fab_close);
-                    userreq.startAnimation(fab_close);
-                    allreqText.startAnimation(fab_close);
-                    userreqText.startAnimation(fab_close);
+                        mainbtn.startAnimation(fab_rotate);
+                        allreq.startAnimation(fab_close);
+                        userreq.startAnimation(fab_close);
+                        allreqText.startAnimation(fab_close);
+                        userreqText.startAnimation(fab_close);
 
-                    isOpen=false;
-                }else{
+                        isOpen = false;
+                    } else {
 
-                    mainbtn.startAnimation(fab_rotate);
-                    allreq.startAnimation(fab_open);
-                    userreq.startAnimation(fab_open);
-                    allreqText.startAnimation(fab_open);
-                    userreqText.startAnimation(fab_open);
+                        mainbtn.startAnimation(fab_rotate);
+                        allreq.startAnimation(fab_open);
+                        userreq.startAnimation(fab_open);
+                        allreqText.startAnimation(fab_open);
+                        userreqText.startAnimation(fab_open);
 
-                    isOpen=true;
+                        isOpen = true;
+                    }
                 }
-            }
-        });
+            });
 
-        allreq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), BloodDonationRequests.class));
-                finish();
-            }
-        });
+            allreq.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(view.getContext(), BloodDonationRequests.class));
+                }
+            });
 
-        userreq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), CurrentUserRequests.class));
-                finish();
-            }
-        });
+            userreq.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(view.getContext(), CurrentUserRequests.class));
+                }
+            });
+        }
 
     }
 
@@ -298,34 +301,6 @@ public class WelcomeActivity extends AppCompatActivity {
         }
         return true;
     }
-
-
-    //Menu Option On Top-Right
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if(mAuth.getCurrentUser()!=null){
-        getMenuInflater().inflate(R.menu.mymenu, menu);
-        return super.onCreateOptionsMenu(menu);}
-        return false;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(mAuth.getCurrentUser()!=null){
-        int id = item.getItemId();
-        if (id == R.id.logout_btn) {
-            FirebaseAuth.getInstance().signOut();
-            recreate();
-        }
-        else if(id==R.id.refresh){
-            recreate();
-        }
-        else if(id==R.id.profile_btm){
-            startActivity(new Intent(getBaseContext(), ProfileView.class));
-        }
-        return super.onOptionsItemSelected(item);}
-        return false;
-    }
-    //Menu Option Till here
 
     public class MyViewPagerAdapter extends PagerAdapter {
         private LayoutInflater layoutInflater;

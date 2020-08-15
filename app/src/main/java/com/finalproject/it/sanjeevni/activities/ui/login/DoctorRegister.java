@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.activities.Validations;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,12 +22,10 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,6 +90,7 @@ public class DoctorRegister extends AppCompatActivity {
         appointmentText=findViewById(R.id.appointment);
         imageText=findViewById(R.id.logo);
         progressBar=findViewById(R.id.loading);
+        final Validations vd=new Validations();
 
         mAuth=FirebaseAuth.getInstance();
         fstore=FirebaseFirestore.getInstance();
@@ -131,7 +131,7 @@ public class DoctorRegister extends AppCompatActivity {
                 add_dr_dialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if( !validateString(drName) | !validateString(drSpec))
+                        if( !vd.validateString(drName) | !vd.validateString(drSpec))
                         {
                             Toast toast=Toast.makeText(getBaseContext(),"Entry Not Added.Both the fields are required.",Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER, 0, 0);
@@ -155,10 +155,10 @@ public class DoctorRegister extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!validateString(fullname) | !validateString(address) | !validateString(dr_name) | !validateString(dr_spec)
-                        | !validateRadio(category,categoryText) | !validateCheckbox(online,oncall,onspot,appointmentText)
-                        | !validateImage(logo_done,imageText) | !validateCheckBoxText(online,onlinedetail)
-                        | !validateCheckBoxText(oncall,oncalldetail) )
+                if(!vd.validateString(fullname) | !vd.validateString(address) | !vd.validateString(dr_name) | !vd.validateString(dr_spec)
+                        | !vd.validateRadio(view,category,categoryText) | !vd.validateCheckbox3(online,oncall,onspot,appointmentText)
+                        | !vd.validateImage(logo_done,imageText) | vd.validateCheckBoxText(online, onlinedetail)
+                        | vd.validateCheckBoxText(oncall, oncalldetail))
                     return ;
 
 
@@ -299,7 +299,6 @@ public class DoctorRegister extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1000 && resultCode == RESULT_OK && data != null) {
-            //imageUri = data.getData();
             CropImage.activity()
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .setAspectRatio(1,1)
@@ -337,60 +336,5 @@ public class DoctorRegister extends AppCompatActivity {
         });
 
     }
-
-    private boolean validateString(EditText anyString) {
-        String userInput = anyString.getEditableText().toString().trim();
-        if (userInput.isEmpty()) {
-            anyString.setError("Field can't be empty");
-            return false;
-        } else {
-            anyString.setError(null);
-            return true;
-        }
-    }
-
-    private boolean validateRadio(RadioGroup rg, TextView tv)
-    {
-        RadioButton sel= findViewById(rg.getCheckedRadioButtonId());
-        if(sel==null) {
-            tv.setError("Select One");
-            return false;
-        }
-        else {
-            tv.setError(null);
-            return true;
-        }
-    }
-
-    private boolean validateCheckbox(CheckBox ch1, CheckBox ch2, CheckBox ch3, TextView tv)
-    {   if(!(ch1.isChecked() | ch2.isChecked() | ch3.isChecked() ))
-        {   tv.setError("Select At least one:");
-            return false;   }
-        else
-        {   tv.setError(null);
-            return true;    }
-    }
-
-
-    private boolean validateCheckBoxText(CheckBox cb, EditText et) {
-        if(cb.isChecked() && !validateString(et))
-            return false;
-        return true;
-    }
-
-    private boolean validateImage(Boolean b, TextView tv)
-    {
-        if(b==false)
-        {
-            tv.setError("Image Required.");
-            return false;
-        }
-        else
-        {
-            tv.setError(null);
-            return true;
-        }
-    }
-
 
 }

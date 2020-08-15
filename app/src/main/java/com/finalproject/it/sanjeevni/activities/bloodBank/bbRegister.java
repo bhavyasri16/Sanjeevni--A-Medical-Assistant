@@ -1,14 +1,11 @@
 package com.finalproject.it.sanjeevni.activities.bloodBank;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -21,16 +18,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.activities.BaseActivity;
+import com.finalproject.it.sanjeevni.activities.Validations;
 import com.finalproject.it.sanjeevni.activities.WelcomeActivity;
-import com.finalproject.it.sanjeevni.fragment.ProfileView;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -40,11 +34,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.onesignal.OneSignal;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class bbRegister extends AppCompatActivity {
+public class bbRegister extends BaseActivity {
     TextInputLayout inputID, inputBGroup;
     EditText etDisease;
     Button btnReg;
@@ -88,10 +81,11 @@ public class bbRegister extends AppCompatActivity {
         rbYes = findViewById(R.id.rbYes);
         rbNo = findViewById(R.id.rbNo);
         cbDeclaration = findViewById(R.id.cbDeclaration);
+        final Validations vd=new Validations();
 
         //adding back button in Action Bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Blood Bank");
+        getSupportActionBar().setTitle("Blood Connect");
         getSupportActionBar().setSubtitle("Register yourself...");
 
         btnReg.setEnabled(false);
@@ -106,7 +100,7 @@ public class bbRegister extends AppCompatActivity {
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!validateID() || !validateBGroup()) {
+                if (!vd.validateID(inputID) || vd.validateBGroup(inputBGroup)) {
                     Toast.makeText(bbRegister.this, "Please fill all the fields as required!", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -164,33 +158,6 @@ public class bbRegister extends AppCompatActivity {
         });
     }
 
-    private boolean validateID(){
-        String IDProof = inputID.getEditText().getText().toString().trim();
-        if(IDProof.length() < 12){
-            inputID.setError("*A 12-digit number required!");
-            return false;
-        }
-        else {
-            inputID.setError("");
-            return true;
-        }
-    }
-
-    private boolean validateBGroup(){
-        BGroup = inputBGroup.getEditText().getText().toString().trim();
-        BGroup=BGroup.toUpperCase();
-        BGroup = BGroup.replaceAll("\\s", "");
-        String[] groups= {"A+","A-","B+","B-","O+","O-","AB-","AB+"};
-        if(BGroup.length() == 0)
-            return false;
-        if(!Arrays.asList(groups).contains(BGroup))
-        {
-            inputBGroup.setError("Valid Blood Groups : A+, A-, B+, B-, O+, O-, AB-, AB+");
-            return false;
-        }
-        return true;
-    }
-
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -228,59 +195,6 @@ public class bbRegister extends AppCompatActivity {
         }
 
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.mymenu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
 
-        int id = item.getItemId();
-        if (id == R.id.logout_btn) {
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
-        }
-        else if(id==R.id.refresh){
-            recreate();
-        }
-        else if(id==R.id.profile_btm){
-            startActivity(new Intent(getBaseContext(), ProfileView.class));
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
-    private void updateRequestIndex(final String collectionName,final String documentName, String fieldName) {
-        index = getRequestIndex(collectionName,documentName,fieldName);
-        DocumentReference docref = fstore.collection(collectionName).document(documentName);
-        Map<String, Object> indexadd = new ArrayMap<>();
-        indexadd.put(fieldName, index + 1);
-        docref.update(indexadd).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("TAG","updateRequestIndexError:"+collectionName+"/"+documentName+" : "+e.getMessage());
-            }
-        });
-    }
-
-    //Get the value of index field in a document
-    private int getRequestIndex(final String collectionName,final String documentName,final String fieldName) {
-        index=0;
-        final DocumentReference docref=fstore.collection(collectionName).document(documentName);
-        docref.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                Map<String,Object> thisData= value.getData();
-                if(thisData.containsKey(fieldName)) {
-                    index = Integer.parseInt(thisData.get(fieldName).toString());
-                    Log.d("TAG", "INDEX VALUE "+index);
-                    return;
-                }
-                else
-                    index=0;
-            }
-        });
-
-        return index;
-    }
 }

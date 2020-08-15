@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.activities.Validations;
 import com.finalproject.it.sanjeevni.activities.WelcomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -14,25 +15,17 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{6,}" + "$");
     private FirebaseAuth mAuth;
     private Button loginButton,register_Button,forgotPasswordButton;
     private EditText usern,pass;
-    private ProgressBar loadingProgressBar;
-    private Drawable thisdra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +38,13 @@ public class LoginActivity extends AppCompatActivity {
         forgotPasswordButton = findViewById(R.id.forgot_password);
         mAuth = FirebaseAuth.getInstance();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        final Validations vd=new Validations();
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if( !validateEmail() | !validatePassword())
+                if( vd.validateEmail(usern) | vd.validatePassword(pass))
                     return;
-                //loadingProgressBar.setVisibility(View.VISIBLE);
                 mAuth.signInWithEmailAndPassword(usern.getEditableText().toString().trim(),
                         pass.getEditableText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -81,8 +74,6 @@ public class LoginActivity extends AppCompatActivity {
         forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // openDialog();
-
                 final EditText resetMail = new EditText((v.getContext()));
                 resetMail.setHint("Registered Email ID");
                 AlertDialog.Builder passresetDialog = new AlertDialog.Builder(v.getContext());
@@ -115,34 +106,6 @@ public class LoginActivity extends AppCompatActivity {
                 passresetDialog.create().show();
             }
         });
-    }
-
-    private boolean validateEmail() {
-        String emailInput = usern.getEditableText().toString().trim();
-        if (emailInput.isEmpty()) {
-            usern.setError("Field can't be empty");
-            return false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
-            usern.setError("Please enter a valid email address");
-            return false;
-        } else {
-            usern.setError(null);
-            return true;
-        }
-    }
-
-    private boolean validatePassword() {
-        String passwordInput = pass.getEditableText().toString().trim();
-        if (passwordInput.isEmpty()) {
-            pass.setError("Field can't be empty");
-            return false;
-        } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
-            pass.setError("Min. 5 characters required(No Spaces Allowed)");
-            return false;
-        } else {
-            pass.setError(null);
-            return true;
-        }
     }
 
 }

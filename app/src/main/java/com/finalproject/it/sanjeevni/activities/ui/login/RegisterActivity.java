@@ -7,11 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import com.finalproject.it.sanjeevni.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.finalproject.it.sanjeevni.activities.Validations;
 
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,21 +26,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.regex.Pattern;
 
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText firstname, lastname, emailid, phone, password, confirm_password, dob;
+    private EditText firstname, emailid, phone, password, confirm_password, dob;
     private TextView statetext,citytext;
     private RadioGroup gender;
     private RadioButton sel_gen;
     private Button registerButton,dr_register;
     private Spinner state_spinner,city_spinner;
-    private ArrayAdapter<State> stateArrayAdapter;
     private ArrayAdapter<City> cityArrayAdapter;
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{6,}" + "$");
-    private static final Pattern PHONE_PATTERN = Pattern.compile("^" + "(?=\\S+$)" + ".{10,}" + "$");
     private ProgressBar loadingProgressBar;
     private String stateSelected,citySelected;
     private StateCity_List scl= new StateCity_List();
@@ -56,7 +50,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         loadingProgressBar = findViewById(R.id.loading);
         firstname = findViewById(R.id.first_name);
-        lastname =  findViewById(R.id.last_name);
         emailid =  findViewById(R.id.email_id);
         phone =  findViewById(R.id.phone_no);
         password =  findViewById(R.id.create_password);
@@ -70,6 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
         city_spinner =  findViewById(R.id.city);
         state_spinner =  findViewById(R.id.state);
         dob=  findViewById(R.id.dob);
+        final Validations vd=new Validations();
 
         statetext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
         scl.createLists();
-        stateArrayAdapter = new ArrayAdapter<State>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, scl.states);
+        ArrayAdapter<State> stateArrayAdapter = new ArrayAdapter<State>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, scl.states);
         stateArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         state_spinner.setAdapter(stateArrayAdapter);
 
@@ -133,7 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (!validateFirstname() | !validateLastname() | !validateCity() | !validateEmail()  | !validatePhone() | !validateDate() | !validatePassword() | !validateConfirmPassword())
+                if (!vd.validateString(firstname) | validateCity() | vd.validateEmail(emailid) | vd.validatePhone(phone) | !vd.validateDate(dob) | vd.validatePassword(password) | validateConfirmPassword())
                 {
                     return;
                 }
@@ -142,7 +136,6 @@ public class RegisterActivity extends AppCompatActivity {
                             sel_gen= findViewById(gender.getCheckedRadioButtonId());
                             intent = new Intent(getBaseContext(),Verification_phone.class);
                             intent.putExtra("firstName",firstname.getEditableText().toString().trim());
-                            intent.putExtra("lastName",lastname.getEditableText().toString().trim());
                             intent.putExtra("emailID",emailid.getEditableText().toString().trim());
                             intent.putExtra("phoneNo",phone.getEditableText().toString().trim());
                             intent.putExtra("state",stateSelected);
@@ -161,7 +154,7 @@ public class RegisterActivity extends AppCompatActivity {
         this.dr_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (! validateCity() | !validateEmail()  | !validatePhone() | !validatePassword() | !validateConfirmPassword())
+                if (validateCity() | vd.validateEmail(emailid) | vd.validatePhone(phone) | vd.validatePassword(password) | validateConfirmPassword())
                 {
                     return;
                 }
@@ -233,115 +226,36 @@ public class RegisterActivity extends AppCompatActivity {
         dob.setText(sdf.format(myCal.getTime()));
     }
 
-
-    private boolean validateFirstname() {
-        String usernameInput = firstname.getEditableText().toString().trim();
-        String[] arr= usernameInput.split(" ");
-        if (usernameInput.isEmpty()) {
-            firstname.setError("Field can't be empty");
-            return false;
-        } else if (arr.length>1) {
-            firstname.setError("Only one word required");
-            return false;
-        } else {
-            firstname.setError(null);
-            return true;
-        }
-    }
-
-    private boolean validateLastname() {
-        String usernameInput = lastname.getEditableText().toString().trim();
-        String[] arr= usernameInput.split(" ");
-        if (usernameInput.isEmpty()) {
-            lastname.setError(null);
-            return true;
-        } else if (arr.length>1) {
-            lastname.setError("Only one word required");
-            return false;
-        } else {
-            lastname.setError(null);
-            return true;
-        }
-    }
-
     private boolean validateCity(){
         if(cityID==0)
         {
             citytext.setVisibility(View.VISIBLE);
             city_spinner.setVisibility(View.INVISIBLE);
             citytext.setError("Please Select One");
-            return false;
+            return true;
         }
         if(stateID==0)
         {
             statetext.setVisibility(View.VISIBLE);
             state_spinner.setVisibility(View.INVISIBLE);
             statetext.setError("Please Select One");
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
-    private boolean validateEmail() {
-        String emailInput = emailid.getEditableText().toString().trim();
-        if (emailInput.isEmpty()) {
-            emailid.setError("Field can't be empty");
-            return false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
-            emailid.setError("Please enter a valid email address");
-            return false;
-        } else {
-            emailid.setError(null);
-            return true;
-        }
-    }
-    private boolean validatePhone() {
-        String Input = phone.getEditableText().toString().trim();
-        if (Input.isEmpty()) {
-            phone.setError("Field can't be empty");
-            return false;
-        } else if (!PHONE_PATTERN.matcher(Input).matches()) {
-            phone.setError("Please enter a valid Mobile Number");
-            return false;
-        } else {
-            phone.setError(null);
-            return true;
-        }
-    }
-    private boolean validatePassword() {
-        String passwordInput = password.getEditableText().toString().trim();
-        if (passwordInput.isEmpty()) {
-            password.setError("Field can't be empty");
-            return false;
-        } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
-            password.setError("Min. 6 characters required(No Spaces Allowed)");
-            return false;
-        } else {
-            password.setError(null);
-            return true;
-        }
-    }
     private boolean validateConfirmPassword() {
         String passwordInput = confirm_password.getEditableText().toString().trim();
         if (passwordInput.isEmpty()) {
             confirm_password.setError("Field can't be empty");
-            return false;
+            return true;
         } else if (!(password.getEditableText().toString().trim().equals(passwordInput))) {
             confirm_password.setError("Password does not match");
-            return false;
+            return true;
         } else {
             confirm_password.setError(null);
-            return true;
-        }
-    }
-    private boolean validateDate() {
-        String Input = dob.getEditableText().toString().trim();
-        if (Input.isEmpty()) {
-            dob.setError("Date of Birth Required");
             return false;
-        } else {
-            dob.setError(null);
-            return true;
         }
     }
+
 }

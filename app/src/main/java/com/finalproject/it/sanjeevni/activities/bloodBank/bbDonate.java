@@ -9,12 +9,10 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.provider.DocumentsContract;
 import android.telephony.SmsManager;
 import android.util.ArrayMap;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -23,13 +21,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.activities.BaseActivity;
+import com.finalproject.it.sanjeevni.activities.Validations;
 import com.finalproject.it.sanjeevni.activities.WelcomeActivity;
-import com.finalproject.it.sanjeevni.fragment.ProfileView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -40,21 +38,19 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Scanner;
 
-public class bbDonate extends AppCompatActivity {
+public class bbDonate extends BaseActivity {
     TextInputLayout inputName, inputContact, inputIDProof, searchBGroup, searchCity;
     Button btnSearch;
     String name, contact, IDProof, BGroup, city, message, userID;
@@ -79,6 +75,7 @@ public class bbDonate extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
         userID = mAuth.getCurrentUser().getUid();
+        final Validations vd=new Validations();
 
         if (Build.VERSION.SDK_INT >= 26) {
             if (checkPermission()) {
@@ -89,7 +86,7 @@ public class bbDonate extends AppCompatActivity {
         }
         //adding back button in Action Bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Blood Bank");
+        getSupportActionBar().setTitle("Blood Connect");
         getSupportActionBar().setSubtitle("Search donor...");
 
 
@@ -124,20 +121,22 @@ public class bbDonate extends AppCompatActivity {
         });
 
 
-        inputName.getEditText().requestFocus();
+        Objects.requireNonNull(inputName.getEditText()).requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(inputName.getEditText(), InputMethodManager.SHOW_IMPLICIT);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                validateID();
+                vd.validateID(inputIDProof);
                 validateContact();
-                if (!validateName() | !validateContact() | !validateBGroup() | !validateCity() | !validateID()) {
+                if (!validateName() | !validateContact() | vd.validateBGroup(searchBGroup) | !validateCity() | !vd.validateID(inputIDProof)) {
                     Toast.makeText(bbDonate.this, "Please fill all the fields as required!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (checkPermission()) {
+                    IDProof=inputIDProof.getEditText().getText().toString().trim();
+                    BGroup=searchBGroup.getEditText().getText().toString().trim();
                     addRequestAtIndex(requestIndex+1, view);
                 } else {
                     Toast.makeText(bbDonate.this, "Permission denied", Toast.LENGTH_SHORT).show();
@@ -155,6 +154,7 @@ public class bbDonate extends AppCompatActivity {
         request.put("BloodGroup", BGroup);
         request.put("Name", name);
         request.put("City", city);
+        request.put("Adhar",IDProof);
         request.put("Contact", contact);
         request.put("Answered", "NO");
         docref.set(request).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -212,7 +212,7 @@ public class bbDonate extends AppCompatActivity {
                                 thisdonor.put("bgroup",donorData.getString("blood_group"));
                                 thisdonor.put("city",donorData.getString("city"));
                                 contactList.add(thisdonor);
-                                if(thisdonor.get("bgroup").equals(BGroup) && (thisdonor.get("city").toString()).equalsIgnoreCase(city))
+                                if(thisdonor.get("bgroup").toString().equalsIgnoreCase(BGroup) && (thisdonor.get("city").toString()).equalsIgnoreCase(city))
                                 {
                                     message = "Hello " + thisdonor.get("name") + " , If you are willing to donate " + BGroup + " in the city " + thisdonor.get("city")
                                             + ", Please Contact " + name + "( " + contact + " ) URGENTLY. Regards Sanjeevni Team.";
@@ -255,9 +255,6 @@ public class bbDonate extends AppCompatActivity {
                             .permitAll().build();
                     StrictMode.setThreadPolicy(policy);
                     String send_tag="donor";
-
-                    //This is a Simple Logic to Send Notification different Device Programmatically....
-                    //send_email =details.get("email");
 
                     try {
                         String jsonResponse;
@@ -314,26 +311,6 @@ public class bbDonate extends AppCompatActivity {
         });
     }
 
-
-    private void sendMessage(View view,List<HashMap<String,String>> contactList) {
-        HashMap<String,String> details;
-        for(int i=0;i<contactList.size();i++){
-            details=contactList.get(i);
-            if((details.get("bgroup").equals(BGroup)) && (details.get("city").equalsIgnoreCase(city)))
-            {
-                message = "Hello " + details.get("name") + " , If you are willing to donate " + BGroup + " in the city " + city
-                        + ", Please Contact " + name + "( " + contact + " ) URGENTLY. Regards Sanjeevni Team.";
-                try {
-                    SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(details.get("contact"), null, message, null, null);
-                    Toast.makeText(getApplicationContext(),"messg sent to "+details.get("name"),Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Error in Sending Message : " + e, Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
-
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(bbDonate.this, Manifest.permission.SEND_SMS);
         if (result == PackageManager.PERMISSION_GRANTED) {
@@ -350,21 +327,19 @@ public class bbDonate extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_REQUEST_CODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(bbDonate.this,
-                            "Permission accepted", Toast.LENGTH_LONG).show();
+                Toast.makeText(bbDonate.this,
+                        "Permission accepted", Toast.LENGTH_LONG).show();
 
-                } else {
-                    Toast.makeText(bbDonate.this,
-                            "Permission denied", Toast.LENGTH_LONG).show();
-                    Button sendSMS = (Button) findViewById(R.id.btnSearch);
-                    sendSMS.setEnabled(false);
+            } else {
+                Toast.makeText(bbDonate.this,
+                        "Permission denied", Toast.LENGTH_LONG).show();
+                Button sendSMS = (Button) findViewById(R.id.btnSearch);
+                sendSMS.setEnabled(false);
 
-                }
-                break;
+            }
         }
     }
 
@@ -387,62 +362,32 @@ public class bbDonate extends AppCompatActivity {
         }
     }
 
-    private boolean validateBGroup(){
-        BGroup = searchBGroup.getEditText().getText().toString().trim();
-        BGroup=BGroup.toUpperCase();
-        BGroup = BGroup.replaceAll("\\s", "");
-        String[] groups= {"A+","A-","B+","B-","O+","O-","AB-","AB+"};
-        if(BGroup.length() == 0)
-            return false;
-        if(!Arrays.asList(groups).contains(BGroup))
-        {
-            searchBGroup.setError("Valid Blood Groups : A+, A-, B+, B-, O+, O-, AB-, AB+");
-            return false;
-        }
-        searchBGroup.setError(null);
-        return true;
-    }
-
     private boolean validateCity(){
-        city = searchCity.getEditText().getText().toString().trim();
         if(city.length() == 0)
             return false;
         return true;
     }
 
-    private boolean validateID(){
-        IDProof = inputIDProof.getEditText().getText().toString().trim();
-        if(IDProof.length() < 12){
-            inputIDProof.setError("*A 12-digit number required!");
-            return false;
-        }
-        else {
-            inputIDProof.setError("");
-            return true;
-        }
+    public void onSelectCity(final View view)
+    {
+        final SpinnerDialog dialog=new SpinnerDialog(view.getContext());
+        dialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(dialog.getCityID()!=0) {
+                    city=dialog.getCitySelected();
+                    searchCity.setHint(city);
+                }else {
+                    Toast toast = Toast.makeText(view.getContext(), "Please Select the City to filter.", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        }).create().show();
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.mymenu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        if (id == R.id.logout_btn) {
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
-        }
-        else if(id==R.id.refresh){
-            recreate();
-        }
-        else if(id==R.id.profile_btm){
-            startActivity(new Intent(getBaseContext(), ProfileView.class));
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
 }

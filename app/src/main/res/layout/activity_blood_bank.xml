@@ -42,7 +42,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="75dp"
         android:gravity="center"
-        android:text="BANK"
+        android:text="Connect"
         android:textAllCaps="true"
         android:textColor="@android:color/white"
         android:textSize="35sp"

@@ -30,7 +30,7 @@ public class CurrentUserRequests extends AppCompatActivity {
 
     private static final int REQUEST_CALL=1;
     private ListView listView;
-    private List<HashMap<String,String>> display_list=new ArrayList<>();
+    private List<HashMap<String,Object>> display_list=new ArrayList<>();
     private FirebaseFirestore fStore;
     private FirebaseAuth fAuth;
     private String userID;
@@ -65,13 +65,14 @@ public class CurrentUserRequests extends AppCompatActivity {
                             if (!(snapshot.getId().equals("01_RequestIndex"))
                                     && !(snapshot.getId().equals("02_RequestNoPerUser"))) {
                                 if (snapshot.getString("userID").equals(userID)) {
-                                    HashMap<String, String> temp = new HashMap<>();
+                                    HashMap<String, Object> temp = new HashMap<>();
                                     temp.put("Bgroup", snapshot.getString("BloodGroup"));
                                     temp.put("City", snapshot.getString("City"));
                                     temp.put("Contact", snapshot.getString("Contact"));
                                     temp.put("Time", snapshot.getString("TimeStamp"));
                                     temp.put("answered", snapshot.getString("Answered"));
                                     temp.put("name", snapshot.getString("Name"));
+                                    temp.put("docID",snapshot.getId());
                                     display_list.add(temp);
                                 }
                             }

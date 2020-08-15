@@ -20,11 +20,10 @@ import java.util.ArrayList;
 
 public class StateCity_List {
 
-    protected ArrayList<State> states=new ArrayList<>();
-    protected ArrayList<City> cities= new ArrayList<>();
-    private ArrayAdapter adapter;
+    public ArrayList<State> states=new ArrayList<>();
+    public ArrayList<City> cities= new ArrayList<>();
 
-    protected void createLists() {
+    public void createLists() {
 
 
         State state0 = new State(0,  "Select Your State");

@@ -16,6 +16,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.onesignal.OneSignal;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,7 +37,7 @@ public class Verification_phone extends AppCompatActivity {
     private EditText otp;
     private Button verify_btn;
     private ProgressBar progress;
-    private String phoneNo,firstName,lastName,emailID,city,gender,dateOfBirth,userID,state,no="NO",password;
+    private String phoneNo,firstName,emailID,city,gender,dateOfBirth,userID,state,no="NO",password;
     private FirebaseAuth mAuth;
     private FirebaseFirestore fstore;
 
@@ -66,7 +67,6 @@ public class Verification_phone extends AppCompatActivity {
 
         phoneNo = getIntent().getStringExtra("phoneNo");
         firstName=getIntent().getStringExtra("firstName");
-        lastName=getIntent().getStringExtra("lastName");
         state=getIntent().getStringExtra("state");
         city=getIntent().getStringExtra("city");
         emailID=getIntent().getStringExtra("emailID");
@@ -138,7 +138,6 @@ public class Verification_phone extends AppCompatActivity {
                             DocumentReference docref= fstore.collection("userDetails").document(userID);
                             Map<String,Object> user =new HashMap<>();
                             user.put("firstName",firstName );
-                            user.put("lastName",lastName );
                             user.put("emailID",emailID );
                             user.put("phoneNo",phoneNo );
                             user.put("state",state);
@@ -156,6 +155,7 @@ public class Verification_phone extends AppCompatActivity {
                                     toast.show();
                                     mAuth.signOut();
                                     progress.setVisibility(View.INVISIBLE);
+                                    OneSignal.sendTag("User_Type","regular");
                                     startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                                     finish();
                                 }
