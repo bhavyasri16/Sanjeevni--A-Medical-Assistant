@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:name=".app.AppController"
@@ -13,16 +14,21 @@
         android:roundIcon="@mipmap/abc"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ui.login.Approve_Requests"
-            android:parentActivityName=".activities.WelcomeActivity"/>
+        <activity android:name=".activities.searchDoctor.DoctorDetails"
+            android:parentActivityName=".activities.searchDoctor.searchMain"/>
+        <activity
+            android:name=".activities.ui.login.Approve_Requests"
+            android:parentActivityName=".activities.WelcomeActivity" />
         <activity android:name=".activities.ui.login.DoctorRegister" />
         <activity
             android:name=".fragment.ProfileView"
             android:parentActivityName=".activities.WelcomeActivity" />
-        <activity android:name=".activities.searchDoctor.searchMain"
+        <activity
+            android:name=".activities.searchDoctor.searchMain"
             android:parentActivityName=".activities.WelcomeActivity"
-            android:windowSoftInputMode="stateVisible">
-        </activity>
+            android:windowSoftInputMode="stateVisible"
+            android:alwaysRetainTaskState="true"
+            android:launchMode="singleTop"></activity>
         <activity
             android:name=".activities.ui.login.Verification_phone"
             android:parentActivityName=".activities.ui.login.RegisterActivity" />

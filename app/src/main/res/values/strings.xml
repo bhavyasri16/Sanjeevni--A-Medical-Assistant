@@ -195,5 +195,6 @@
         <item>--Select city--</item>
         <item>Lucknow</item>
         <item>Varanasi</item>
+        <item>Prayagraj</item>
     </string-array>
 </resources>

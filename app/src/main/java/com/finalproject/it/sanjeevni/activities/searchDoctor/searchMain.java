@@ -1,17 +1,25 @@
 package com.finalproject.it.sanjeevni.activities.searchDoctor;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.finalproject.it.sanjeevni.R;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +31,10 @@ public class searchMain extends AppCompatActivity {
     Button btnSearch;
     TextView tvNoSelection;
     ListView list;
+    FirebaseFirestore fstore;
+    StorageReference storeRef;
+    private ArrayList<SearchItem> res_docs = new ArrayList<SearchItem>();
+    ProgressBar loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,26 +48,11 @@ public class searchMain extends AppCompatActivity {
         tvNoSelection = (TextView)findViewById(R.id.tvNoSelection);
         tvNoSelection.setVisibility(View.VISIBLE);
 
-        ArrayList<String> data = new ArrayList<String>();
-        data.add("Item 1");
-        data.add("Item 2");
-        data.add("Item 3");
-        data.add("Item 1");
-        data.add("Item 2");
-        data.add("Item 3");
-        data.add("Item 1");
-        data.add("Item 2");
-        data.add("Item 3");
-        data.add("Item 1");
-        data.add("Item 2");
-        data.add("Item 3");
-        data.add("Item 1");
-        data.add("Item 2");
-        data.add("Item 3");
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data);
         list = (ListView)findViewById(R.id.list);
-        list.setAdapter(adapter);
         list.setVisibility(View.INVISIBLE);
+
+        fstore = FirebaseFirestore.getInstance();
+        storeRef= FirebaseStorage.getInstance().getReference();
 
         citySpinner = (Spinner)findViewById(R.id.citySpinner);
         ArrayAdapter<CharSequence> cityAdapter = ArrayAdapter.createFromResource(this, R.array.def, android.R.layout.simple_spinner_item);
@@ -120,15 +117,53 @@ public class searchMain extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(stateSpinner.getSelectedItemPosition()==0 || citySpinner.getSelectedItemPosition()==0){
+                if(stateSpinner.getSelectedItemPosition()==0){
                     Toast.makeText(searchMain.this, "Please select a state and its city!", Toast.LENGTH_SHORT).show();
-
+                } else if(citySpinner.getSelectedItemPosition()==0 && stateSpinner.getSelectedItemPosition()!=0){
+                    Toast.makeText(searchMain.this, "Please select a city as well!", Toast.LENGTH_SHORT).show();
                 } else {
+                    String city = citySpinner.getSelectedItem().toString();
+                    fstore.collection("Doctor_Details")
+                            .whereEqualTo("city", city)
+                            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                @Override
+                                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                                    if(e != null){
+                                        Toast.makeText(searchMain.this, "Error:"+e, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        if(!queryDocumentSnapshots.isEmpty()) {
+                                            res_docs.clear();
+                                            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                                                String docID = doc.getId();
+                                                StorageReference fileRef = storeRef.child("doctors/" + docID + "/logo_image.jpg");
+                                                res_docs.add(new SearchItem(doc.getId(), doc.getString("name"), doc.getString("category"), doc.getString("rating"), fileRef));
+                                                ArrayAdapter<SearchItem> adapter = new SearchAdapter(getBaseContext(), 0, res_docs);
+                                                list.setAdapter(adapter);
+                                            }
+                                        } else {
+                                            list.setAdapter(null);
+                                            Toast.makeText(searchMain.this, "Sorry, we don't have any registered doctors in thiis area!", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                }
+
+                            });
                     tvNoSelection.setVisibility(View.INVISIBLE);
                     list.setVisibility(View.VISIBLE);
+                    list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            SearchItem sel_item = res_docs.get(position);
+                            String key = sel_item.getKey();
+                            Intent intent = new Intent(getBaseContext(), DoctorDetails.class);
+                            intent.putExtra("key", key);
+                            startActivity(intent);
+                        }
+                    });
                 }
             }
         });
+
     }
 
 
