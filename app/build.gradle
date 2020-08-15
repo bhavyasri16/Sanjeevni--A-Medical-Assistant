@@ -5,6 +5,8 @@ buildscript {
     dependencies {
         classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.8, 0.99.99]'
     }
+    
+
 }
 apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 
@@ -68,4 +70,6 @@ dependencies {
     implementation 'com.onesignal:OneSignal:3.15.1'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+
+
 }

@@ -349,7 +349,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         } else if (position == 1) {
                             startActivity(new Intent(WelcomeActivity.this, BloodBank.class));
                         } else if (position == 2) {
-                           // startActivity(new Intent(WelcomeActivity.this,Main2Activity.class));
+                            startActivity(new Intent(WelcomeActivity.this, com.finalproject.it.sanjeevni.activities.reminder.medicineReminder.class));
                         } else {
 
                         }}
