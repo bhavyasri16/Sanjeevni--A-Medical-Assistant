@@ -24,6 +24,8 @@
 
         <activity android:name=".activities.reminder.medicineReminder"
             android:parentActivityName=".activities.WelcomeActivity"/>
+        <activity android:name=".activities.chatBot.chatBot"
+            android:parentActivityName=".activities.WelcomeActivity"/>
         <activity android:name=".activities.bloodBank.CurrentUserRequests"
             android:parentActivityName=".activities.WelcomeActivity"/>
         <activity

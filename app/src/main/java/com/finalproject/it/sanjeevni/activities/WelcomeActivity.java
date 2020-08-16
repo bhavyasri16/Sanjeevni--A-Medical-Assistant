@@ -351,6 +351,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         } else if (position == 2) {
                             startActivity(new Intent(WelcomeActivity.this, com.finalproject.it.sanjeevni.activities.reminder.medicineReminder.class));
                         } else {
+                            startActivity(new Intent(WelcomeActivity.this, com.finalproject.it.sanjeevni.activities.chatBot.chatBot.class));
 
                         }}
                     }
