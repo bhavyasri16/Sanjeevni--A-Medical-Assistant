@@ -96,27 +96,4 @@ public class CurrentUserRequests extends BaseActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.mymenu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        if (id == R.id.logout_btn) {
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
-            finish();
-        }
-        else if(id==R.id.refresh){
-            recreate();
-        }
-        else if(id==R.id.profile_btm){
-            startActivity(new Intent(getApplicationContext(), ProfileView.class));
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
