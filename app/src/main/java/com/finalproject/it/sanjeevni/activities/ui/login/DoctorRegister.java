@@ -92,6 +92,9 @@ public class DoctorRegister extends AppCompatActivity {
         progressBar=findViewById(R.id.loading);
         final Validations vd=new Validations();
 
+        RadioButton hospital=findViewById(R.id.hospital);
+        hospital.setChecked(true);
+
         mAuth=FirebaseAuth.getInstance();
         fstore=FirebaseFirestore.getInstance();
         storeRef= FirebaseStorage.getInstance().getReference();
@@ -102,8 +105,6 @@ public class DoctorRegister extends AppCompatActivity {
         email=getIntent().getStringExtra("emailID");
         password=getIntent().getStringExtra("password");
 
-        RadioButton hospital=findViewById(R.id.hospital);
-        hospital.setChecked(true);
 
         add_logo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,7 +165,6 @@ public class DoctorRegister extends AppCompatActivity {
                 {return ;}
 
 
-                Toast.makeText(getApplicationContext(),"button clicked",Toast.LENGTH_LONG).show();
                 mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -339,6 +339,5 @@ public class DoctorRegister extends AppCompatActivity {
         });
 
     }
-
 
 }

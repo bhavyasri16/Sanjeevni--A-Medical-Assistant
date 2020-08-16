@@ -97,10 +97,10 @@ public class Validations {
             tv.setError("Select One");
             return false;
         }
-        else {
+
             tv.setError(null);
             return true;
-        }
+
     }
     public boolean validateImage(Boolean b, TextView tv)
     {
