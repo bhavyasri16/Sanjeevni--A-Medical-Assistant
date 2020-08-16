@@ -223,7 +223,10 @@ public class ProfileView extends BaseActivity {
             donor.setText("You are Registered as a donor");
             adhar.setText(adhartext);
             bloodgroup.setText(bloodgrouptext);
-            health.setText(healthtext);
+            if(healthtext.length()!=0)
+                health.setText(healthtext);
+            else
+                health.setText("You Have No Medical Background.");
         }
         else if(donortext.equalsIgnoreCase("no"))
         {

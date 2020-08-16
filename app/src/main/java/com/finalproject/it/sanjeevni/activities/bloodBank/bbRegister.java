@@ -112,7 +112,7 @@ public class bbRegister extends BaseActivity {
                 user.put("adhar",inputID.getEditText().getText().toString().trim());
                 user.put("health_history", sel.getText().toString().trim());
                 user.put("disease_description",etDisease.getEditableText().toString().trim());
-                user.put("blood_group",BGroup);
+                user.put("blood_group",inputBGroup.getEditText().getText().toString().trim());
                 docref.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

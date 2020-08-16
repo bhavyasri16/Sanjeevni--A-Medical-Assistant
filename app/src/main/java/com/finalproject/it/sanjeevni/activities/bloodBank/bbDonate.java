@@ -111,12 +111,13 @@ public class bbDonate extends BaseActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                if(value.contains(userID)) {
-                    requestNoForThisUser = Integer.parseInt(value.get(userID).toString());
-                    return;
+                if(mAuth.getCurrentUser()!=null) {
+                    assert value != null;
+                    if (value.contains(userID)) {
+                        requestNoForThisUser = Integer.parseInt(value.get(userID).toString());
+                    } else
+                        requestNoForThisUser = 0;
                 }
-                else
-                    requestNoForThisUser=0;
             }
         });
 
@@ -345,7 +346,7 @@ public class bbDonate extends BaseActivity {
 
     private boolean validateName(){
         name = inputName.getEditText().getText().toString().trim();
-        if(name.length() == 0)
+        if(name==null)
             return false;
         return true;
     }
@@ -363,7 +364,7 @@ public class bbDonate extends BaseActivity {
     }
 
     private boolean validateCity(){
-        if(city.length() == 0)
+        if(city==null)
             return false;
         return true;
     }

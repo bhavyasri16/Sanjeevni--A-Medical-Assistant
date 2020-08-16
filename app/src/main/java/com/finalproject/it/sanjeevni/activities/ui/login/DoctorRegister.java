@@ -159,11 +159,12 @@ public class DoctorRegister extends AppCompatActivity {
             public void onClick(View view) {
                 if(!vd.validateString(fullname) | !vd.validateString(address) | !vd.validateString(dr_name) | !vd.validateString(dr_spec)
                          | !vd.validateCheckbox3(online,oncall,onspot,appointmentText)
-                        | !vd.validateImage(logo_done,imageText) | vd.validateCheckBoxText(online, onlinedetail)
-                        | vd.validateCheckBoxText(oncall, oncalldetail))
-                    return ;
+                        | !vd.validateImage(logo_done,imageText) | !vd.validateCheckBoxText(online, onlinedetail)
+                        | !vd.validateCheckBoxText(oncall, oncalldetail))
+                {return ;}
 
 
+                Toast.makeText(getApplicationContext(),"button clicked",Toast.LENGTH_LONG).show();
                 mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -338,5 +339,6 @@ public class DoctorRegister extends AppCompatActivity {
         });
 
     }
+
 
 }

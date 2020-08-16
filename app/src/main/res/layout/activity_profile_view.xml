@@ -310,11 +310,13 @@
             android:layout_marginRight="28dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/layout_round_edge"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_disease_discription"/>
             <TextView
                 android:textStyle="bold"
@@ -338,6 +340,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/ic_edit_white"
+                android:layout_gravity="center_vertical"
                 android:background="@drawable/btn_round"
                 />
         </LinearLayout>
