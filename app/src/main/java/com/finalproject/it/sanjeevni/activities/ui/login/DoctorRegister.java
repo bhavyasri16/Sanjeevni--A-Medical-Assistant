@@ -102,6 +102,8 @@ public class DoctorRegister extends AppCompatActivity {
         email=getIntent().getStringExtra("emailID");
         password=getIntent().getStringExtra("password");
 
+        RadioButton hospital=findViewById(R.id.hospital);
+        hospital.setChecked(true);
 
         add_logo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,7 +158,7 @@ public class DoctorRegister extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(!vd.validateString(fullname) | !vd.validateString(address) | !vd.validateString(dr_name) | !vd.validateString(dr_spec)
-                        | !vd.validateRadio(view,category,categoryText) | !vd.validateCheckbox3(online,oncall,onspot,appointmentText)
+                         | !vd.validateCheckbox3(online,oncall,onspot,appointmentText)
                         | !vd.validateImage(logo_done,imageText) | vd.validateCheckBoxText(online, onlinedetail)
                         | vd.validateCheckBoxText(oncall, oncalldetail))
                     return ;

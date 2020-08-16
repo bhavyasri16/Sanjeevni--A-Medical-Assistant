@@ -80,22 +80,24 @@ public class WelcomeActivity extends BaseActivity {
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_welcome);
         fstore=FirebaseFirestore.getInstance();
-        fstore.collection("User_Type").document("admins").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        if(document.getData().containsValue(mAuth.getCurrentUser().getUid())) {
-                            identify_operation=1;
-                            getStarted.setText("Check Pending Requests");
+        if(mAuth.getCurrentUser()!=null) {
+            fstore.collection("User_Type").document("admins").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            if (document.getData().containsValue(mAuth.getCurrentUser().getUid())) {
+                                identify_operation = 1;
+                                getStarted.setText("Check Pending Requests");
+                            }
                         }
+                    } else {
+                        Log.d("TAG", "Error getting documents: ", task.getException());
                     }
-                } else {
-                    Log.d("TAG", "Error getting documents: ", task.getException());
                 }
-            }
-        });
+            });
+        }
 
         viewPager =  findViewById(R.id.view_pager);
         dotsLayout = findViewById(R.id.layoutDots);
