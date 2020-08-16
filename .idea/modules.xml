@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/New folder.iml" filepath="$PROJECT_DIR$/New folder.iml" group="New folder" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="New folder/app" />
-      <module fileurl="file://$PROJECT_DIR$/reminder/reminder.iml" filepath="$PROJECT_DIR$/reminder/reminder.iml" group="New folder/reminder" />
     </modules>
   </component>
 </project>

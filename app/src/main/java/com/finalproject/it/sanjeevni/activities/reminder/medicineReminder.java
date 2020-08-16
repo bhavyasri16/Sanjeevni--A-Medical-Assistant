@@ -57,8 +57,8 @@ public class medicineReminder extends AppCompatActivity implements View.OnClickL
         switch (view.getId())
         {
             case R.id.setBtn:
-                int hour = timePicker.getCurrentHour();
-                int minute = timePicker.getCurrentMinute();
+                int hour = timePicker.getHour();
+                int minute = timePicker.getMinute();
 
 
                 Calendar startTime = Calendar.getInstance();
