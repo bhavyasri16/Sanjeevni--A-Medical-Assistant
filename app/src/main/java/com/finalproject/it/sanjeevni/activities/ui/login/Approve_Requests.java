@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.activities.BaseActivity;
 import com.finalproject.it.sanjeevni.activities.WelcomeActivity;
 import com.finalproject.it.sanjeevni.fragment.ProfileView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Approve_Requests extends AppCompatActivity {
+public class Approve_Requests extends BaseActivity {
 
     private ListView listView;
     private List<HashMap<String,String>> display_list=new ArrayList<>();

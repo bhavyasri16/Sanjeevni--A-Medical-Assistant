@@ -25,7 +25,7 @@
                     android:layout_width="115dp"
                     android:layout_height="115dp"
                     android:layout_marginTop="25dp"
-                    android:src="@drawable/dp_female"
+                    android:src="@drawable/ic_loading"
                     android:clickable="true"
                     android:onClick="onImageViewClicked"
                     app:civ_border_width="2dp"
@@ -37,7 +37,6 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Naufal Nibros"
                     android:textColor="@color/splash_bg_color"
                     android:textStyle="bold"
                     android:textSize="21sp"/>

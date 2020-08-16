@@ -38,7 +38,7 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#F676AF"
+                    android:background="@color/splash_bg_color"
                     android:paddingTop="5sp"
                     android:paddingBottom="5sp">
 
@@ -51,7 +51,7 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#F676AF"
+                    android:background="@color/splash_bg_color"
                     android:paddingTop="5sp"
                     android:paddingBottom="5sp">
 
@@ -86,11 +86,12 @@
             android:text="Please select a state and a city from the drop-down to get the list of doctors according to your requirement."
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/filters" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <com.finalproject.it.sanjeevni.activities.searchDoctor.ScrollableListView
             android:id="@+id/list"

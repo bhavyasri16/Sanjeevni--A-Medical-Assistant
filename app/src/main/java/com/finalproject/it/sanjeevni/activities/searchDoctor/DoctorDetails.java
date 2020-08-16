@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.activities.BaseActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,7 +38,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DoctorDetails extends AppCompatActivity {
+public class DoctorDetails extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

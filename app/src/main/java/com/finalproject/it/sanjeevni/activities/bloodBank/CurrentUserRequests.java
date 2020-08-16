@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.activities.BaseActivity;
 import com.finalproject.it.sanjeevni.activities.WelcomeActivity;
 import com.finalproject.it.sanjeevni.fragment.ProfileView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +27,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class CurrentUserRequests extends AppCompatActivity {
+public class CurrentUserRequests extends BaseActivity {
 
     private static final int REQUEST_CALL=1;
     private ListView listView;

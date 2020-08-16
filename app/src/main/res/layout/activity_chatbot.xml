@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp">
+
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="288dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        android:text="Name"
+        android:textColor="@color/dot_dark_screen1"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:layout_marginEnd="24dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et1"
+        android:layout_width="288dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:hint="Answer"
+        android:textColor="@color/dot_dark_screen1"
+        android:textColorHighlight="@color/dot_light_screen1"
+        app:layout_constraintStart_toStartOf="@+id/tv1"
+        app:layout_constraintTop_toBottomOf="@+id/tv1"
+        app:layout_goneMarginStart="24dp" />
+
+    <Button
+        android:id="@+id/bt1"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+
+        android:layout_alignParentEnd="true"
+
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/splash_bg_color"
+        android:text="-->"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv1"
+        app:layout_goneMarginStart="24dp" />
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="288dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Age"
+        android:textColor="@color/dot_dark_screen1"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et1"
+        app:layout_goneMarginStart="24dp" />
+
+    <EditText
+        android:id="@+id/et2"
+        android:layout_width="288dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="24dp"
+        android:hint="Answer"
+        android:textColor="@color/dot_dark_screen1"
+        android:textColorHighlight="@color/dot_light_screen1"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/tv1"
+        app:layout_constraintTop_toBottomOf="@+id/tv2"
+        app:layout_goneMarginStart="24dp" />
+
+
+    <Button
+        android:id="@+id/bt2"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/splash_bg_color"
+        android:text="-->"
+        android:textColor="@color/colorAccent"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv2"
+        app:layout_goneMarginStart="24dp" />
+
+    <TextView
+        android:id="@+id/tv3"
+        android:layout_width="288dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Gender"
+        android:textColor="@color/dot_dark_screen1"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et2"
+        app:layout_goneMarginStart="24dp" />
+
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="203dp"
+        android:layout_height="33dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="244dp"
+        android:layout_marginTop="15dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:outlineSpotShadowColor="@color/dot_light_screen1"
+        android:popupBackground="@color/splash_bg_color"
+        android:spinnerMode="dropdown"
+        android:textColor="@color/dot_dark_screen1"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tv4"
+        app:layout_constraintEnd_toEndOf="@+id/tv3"
+        app:layout_constraintTop_toBottomOf="@+id/tv3"
+
+        app:layout_goneMarginStart="24dp" />
+
+    <Button
+        android:id="@+id/bt3"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+
+        android:background="@color/splash_bg_color"
+        android:text="-->"
+        android:textColor="@color/colorAccent"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv3"
+        app:layout_goneMarginStart="24dp" />
+
+    <TextView
+        android:id="@+id/tv4"
+        android:layout_width="288dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="Ongoing medical condition"
+        android:textColor="@color/dot_dark_screen1"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner1"
+        app:layout_goneMarginStart="24dp" />
+
+    <EditText
+        android:id="@+id/et4"
+        android:layout_width="288dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:hint="Answer"
+        android:textColor="@color/dot_dark_screen1"
+        android:textColorHighlight="@color/dot_light_screen1"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv4"
+        app:layout_goneMarginStart="24dp" />
+
+    <Button
+        android:id="@+id/bt4"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="12dp"
+
+        android:background="@color/splash_bg_color"
+        android:text="-->"
+        android:textColor="@color/colorAccent"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv4"
+        app:layout_goneMarginStart="24dp" />
+
+    <Button
+
+        android:id="@+id/bt5"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:background="@color/splash_bg_color"
+        android:text="Click here to proceed!"
+        android:textColor="@color/colorAccent"
+        android:layout_marginStart="24dp"
+        android:visibility="invisible"
+        android:layout_marginEnd="24dp"
+        app:layout_goneMarginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

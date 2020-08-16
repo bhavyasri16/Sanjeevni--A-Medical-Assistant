@@ -22,6 +22,23 @@
                 android:orderInCategory="100"
                 app:showAsAction="collapseActionView"
                 />
+
+            <item
+                android:id="@+id/review_btm"
+                android:title="Reviews"
+                android:icon="@drawable/ic_rate_review_black_24dp"
+                android:orderInCategory="100"
+                app:showAsAction="collapseActionView"
+                />
+
+            <item
+                android:id="@+id/help_btm"
+                android:title="Contact Us"
+                android:icon="@drawable/ic_contact_us"
+                android:orderInCategory="100"
+                app:showAsAction="collapseActionView"
+                />
+
             <item
                 android:id="@+id/logout_btn"
                 android:title="Logout"

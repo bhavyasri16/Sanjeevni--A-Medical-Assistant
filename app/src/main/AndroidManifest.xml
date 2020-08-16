@@ -20,6 +20,12 @@
         android:roundIcon="@mipmap/abc"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver android:name=".activities.reminder.AlarmReceiver"/>
+
+        <activity android:name=".activities.reminder.medicineReminder"
+            android:parentActivityName=".activities.WelcomeActivity"/>
+        <activity android:name=".activities.chatBot.chatBot"
+            android:parentActivityName=".activities.WelcomeActivity"/>
         <activity android:name=".activities.bloodBank.CurrentUserRequests"
             android:parentActivityName=".activities.WelcomeActivity"/>
         <activity
@@ -84,9 +90,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.WelcomeActivity" /> <!-- android:theme="@style/HiddenTitleTheme" -->
-        <activity
-            android:name=".activities.MainActivity"
-            android:label="@string/app_name" />
 
         <meta-data
             android:name="com.onesignal.NotificationOpened.DEFAULT"

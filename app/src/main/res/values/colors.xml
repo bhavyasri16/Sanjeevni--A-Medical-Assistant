@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+
+    <color name="active">#444444</color>
+    <color name="outdated">#bbbbbb</color>
     <color name="colorPrimary">#880e4f</color>
     <color name="colorPrimaryDark">#560027</color>
     <color name="colorPrimaryLight">#bc477b</color>

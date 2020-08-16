@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.activities.BaseActivity;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -26,7 +27,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class SearchMain extends AppCompatActivity {
+public class SearchMain extends BaseActivity {
     Spinner stateSpinner, citySpinner;
     Button btnSearch;
     TextView tvNoSelection;
