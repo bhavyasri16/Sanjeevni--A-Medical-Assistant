@@ -36,7 +36,6 @@ public class BaseActivity extends AppCompatActivity {
             }
             else if(id==R.id.profile_btm){
                 startActivity(new Intent(getApplicationContext(), ProfileView.class));
-                finish();
             }
             return super.onOptionsItemSelected(item);}
         return false;

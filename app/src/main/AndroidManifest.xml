@@ -28,14 +28,18 @@
         <activity
             android:name=".activities.ui.login.Approve_Requests"
             android:parentActivityName=".activities.WelcomeActivity" />
+        <activity android:name=".activities.searchDoctor.DoctorDetails"
+            android:parentActivityName=".activities.searchDoctor.SearchMain"/>
         <activity android:name=".activities.ui.login.DoctorRegister" />
         <activity
             android:name=".fragment.ProfileView"
             android:parentActivityName=".activities.WelcomeActivity" />
         <activity
-            android:name=".activities.searchDoctor.searchMain"
+            android:name=".activities.searchDoctor.SearchMain"
             android:parentActivityName=".activities.WelcomeActivity"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateVisible"
+            android:alwaysRetainTaskState="true"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".activities.ui.login.Verification_phone"
             android:parentActivityName=".activities.ui.login.RegisterActivity" />

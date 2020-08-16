@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:fillViewport="true"
-    tools:context=".activities.searchDoctor.searchMain">
+    tools:context=".activities.searchDoctor.SearchMain">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/drSearch"
@@ -38,7 +38,7 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#f48fb1"
+                    android:background="#F676AF"
                     android:paddingTop="5sp"
                     android:paddingBottom="5sp">
 
@@ -51,7 +51,7 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#f48fb1"
+                    android:background="#F676AF"
                     android:paddingTop="5sp"
                     android:paddingBottom="5sp">
 
@@ -78,9 +78,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
-            android:background="#FFFFFF"
+            android:background="@color/splash_bg_color"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="Please select a state and a city from the drop-down to get the list of doctors according to your requirement."
@@ -102,7 +102,25 @@
             android:nestedScrollingEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/filters" />
+            app:layout_constraintTop_toBottomOf="@id/filters" >
+
+        </com.finalproject.it.sanjeevni.activities.searchDoctor.ScrollableListView>
+
+        <ProgressBar
+            android:id="@+id/loading"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="26dp"
+            android:layout_height="11dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="100dp"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

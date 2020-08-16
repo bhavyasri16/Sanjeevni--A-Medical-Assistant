@@ -8,15 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -30,9 +27,9 @@ import com.finalproject.it.sanjeevni.R;
 import com.finalproject.it.sanjeevni.activities.bloodBank.BloodBank;
 import com.finalproject.it.sanjeevni.activities.bloodBank.BloodDonationRequests;
 import com.finalproject.it.sanjeevni.activities.bloodBank.CurrentUserRequests;
+import com.finalproject.it.sanjeevni.activities.searchDoctor.SearchMain;
 import com.finalproject.it.sanjeevni.activities.ui.login.Approve_Requests;
 import com.finalproject.it.sanjeevni.activities.ui.login.LoginActivity;
-import com.finalproject.it.sanjeevni.fragment.ProfileView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -320,7 +317,7 @@ public class WelcomeActivity extends BaseActivity {
                     public void onClick(View view) {
                         if(checkMail(view)){
                         if (position == 0) {
-                            startActivity(new Intent(WelcomeActivity.this, com.finalproject.it.sanjeevni.activities.searchDoctor.searchMain.class));
+                            startActivity(new Intent(WelcomeActivity.this, SearchMain.class));
                         } else if (position == 1) {
                             startActivity(new Intent(WelcomeActivity.this, BloodBank.class));
                         } else if (position == 2) {
