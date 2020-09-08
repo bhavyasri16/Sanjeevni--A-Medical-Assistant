@@ -7,7 +7,9 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.finalproject.it.sanjeevni.R;
+import com.finalproject.it.sanjeevni.fragment.ContactUs;
 import com.finalproject.it.sanjeevni.fragment.ProfileView;
+import com.finalproject.it.sanjeevni.fragment.ReviewActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class BaseActivity extends AppCompatActivity {
@@ -36,6 +38,12 @@ public class BaseActivity extends AppCompatActivity {
             }
             else if(id==R.id.profile_btm){
                 startActivity(new Intent(getApplicationContext(), ProfileView.class));
+            }
+            else if(id==R.id.help_btm){
+                startActivity(new Intent(getApplicationContext(), ContactUs.class));
+            }
+            else if(id==R.id.review_btm){
+                startActivity(new Intent(getApplicationContext(), ReviewActivity.class));
             }
             return super.onOptionsItemSelected(item);}
         return false;

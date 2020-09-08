@@ -71,6 +71,7 @@ public class ProfileView extends BaseActivity {
         fStore=FirebaseFirestore.getInstance();
         storageReference= FirebaseStorage.getInstance().getReference();
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         userID=mAuth.getCurrentUser().getUid();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 

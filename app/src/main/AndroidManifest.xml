@@ -20,32 +20,53 @@
         android:roundIcon="@mipmap/abc"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver android:name=".activities.reminder.AlarmReceiver"/>
+        <activity android:name=".fragment.ReviewActivity"
+            android:parentActivityName=".activities.WelcomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.WelcomeActivity" />
+        </activity>
+        <activity android:name=".fragment.ContactUs"
+        android:parentActivityName=".activities.WelcomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.WelcomeActivity" />
+        </activity>
 
-        <activity android:name=".activities.reminder.medicineReminder"
-            android:parentActivityName=".activities.WelcomeActivity"/>
-        <activity android:name=".activities.chatBot.chatBot"
-            android:parentActivityName=".activities.WelcomeActivity"/>
-        <activity android:name=".activities.bloodBank.CurrentUserRequests"
-            android:parentActivityName=".activities.WelcomeActivity"/>
+        <receiver android:name=".activities.reminder.AlarmReceiver" />
+
+        <activity
+            android:name=".activities.reminder.medicineReminder"
+            android:parentActivityName=".activities.WelcomeActivity" />
+        <activity
+            android:name=".activities.chatBot.chatBot"
+            android:parentActivityName=".activities.WelcomeActivity" />
+        <activity
+            android:name=".activities.bloodBank.CurrentUserRequests"
+            android:parentActivityName=".activities.WelcomeActivity" />
         <activity
             android:name=".activities.bloodBank.BloodDonationRequests"
             android:parentActivityName=".activities.WelcomeActivity" />
         <activity
             android:name=".activities.ui.login.Approve_Requests"
             android:parentActivityName=".activities.WelcomeActivity" />
-        <activity android:name=".activities.searchDoctor.DoctorDetails"
-            android:parentActivityName=".activities.searchDoctor.SearchMain"/>
+        <activity
+            android:name=".activities.searchDoctor.DoctorDetails"
+            android:parentActivityName=".activities.searchDoctor.SearchMain" />
         <activity android:name=".activities.ui.login.DoctorRegister" />
         <activity
             android:name=".fragment.ProfileView"
-            android:parentActivityName=".activities.WelcomeActivity" />
+            android:parentActivityName=".activities.WelcomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.WelcomeActivity" />
+        </activity>
         <activity
             android:name=".activities.searchDoctor.SearchMain"
-            android:parentActivityName=".activities.WelcomeActivity"
-            android:windowSoftInputMode="stateVisible"
             android:alwaysRetainTaskState="true"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.WelcomeActivity"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.ui.login.Verification_phone"
             android:parentActivityName=".activities.ui.login.RegisterActivity" />
@@ -90,7 +111,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.WelcomeActivity" /> <!-- android:theme="@style/HiddenTitleTheme" -->
-
         <meta-data
             android:name="com.onesignal.NotificationOpened.DEFAULT"
             android:value="DISABLE" />
