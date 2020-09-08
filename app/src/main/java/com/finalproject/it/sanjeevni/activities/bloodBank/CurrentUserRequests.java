@@ -95,5 +95,9 @@ public class CurrentUserRequests extends BaseActivity {
             });
         }
     }
-    
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }

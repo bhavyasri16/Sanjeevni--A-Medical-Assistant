@@ -51,7 +51,7 @@ public class CurrentUserRequestsAdapter extends ArrayAdapter {
     private FirebaseAuth fAuth;
     private FirebaseFirestore fstore;
     private int requestNoForThisUser=0;
-    private int activeRequests=0;
+    private int activeRequests=0,reviewIndex=0;
 
     public CurrentUserRequestsAdapter(@NonNull Context context, List<HashMap<String, Object>> hashMap) {
         super(context, R.layout.list_view_items, hashMap);
@@ -92,8 +92,24 @@ public class CurrentUserRequestsAdapter extends ArrayAdapter {
         time.setText(date[0]);
         index.setText(pos);
         ans.setText(hashMap1.get("answered").toString());
-       // if(hashMap1.get("answered").toString().equalsIgnoreCase("YES"))
-        //    changeView(tempView);
+
+        //if(ans.getText().toString().equalsIgnoreCase("YES"))
+        //    check.setVisibility(View.INVISIBLE);
+
+
+        final DocumentReference docref=fstore.collection("userResponse").document("01_ReviewIndex");
+        docref.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                // thisData= value.getData();
+                if(value.exists()) {
+
+                    if (value.contains("NoOfReviews")) {
+                        reviewIndex = Integer.parseInt(value.get("NoOfReviews").toString());
+                    }
+                }
+            }
+        });
 
         check.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,7 +173,12 @@ public class CurrentUserRequestsAdapter extends ArrayAdapter {
                     requestNoForThisUser = Integer.parseInt(value.get(userID).toString());
                     Map<String, Object> indexaddnew = new ArrayMap<>();
                     indexaddnew.put(userID, (requestNoForThisUser - 1));
-                    docref1.update(indexaddnew).addOnFailureListener(new OnFailureListener() {
+                    docref1.update(indexaddnew).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Log.e(TAG,"updateRequestIndexError: "+e.getMessage());
@@ -185,7 +206,12 @@ public class CurrentUserRequestsAdapter extends ArrayAdapter {
         HashMap<String,Object> alter=new HashMap<>();
         alter.put("Answered","YES");
         fstore.collection("DonationRequestList").document(hashMap1.get("docID").toString())
-                .update(alter).addOnFailureListener(new OnFailureListener() {
+                .update(alter).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d("TAG","Changing Answered Field :"+e.getMessage());
@@ -204,11 +230,14 @@ public class CurrentUserRequestsAdapter extends ArrayAdapter {
         reviewDetails.put("fullReview",review);
         reviewDetails.put("email",fAuth.getCurrentUser().getEmail());
 
-        fstore.collection("userResponse").document("userReviews")
+        fstore.collection("userResponse").document("Review_"+reviewIndex)
                 .set(reviewDetails)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        HashMap<Object,Object> entry=new HashMap<>();
+                        entry.put("NoOfReviews",reviewIndex+1);
+                        fstore.collection("userResponse").document("01_ReviewIndex").set(entry);
                         Toast.makeText(context,"Successful !!",Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -218,5 +247,6 @@ public class CurrentUserRequestsAdapter extends ArrayAdapter {
             }
         });
     }
+
 
 }

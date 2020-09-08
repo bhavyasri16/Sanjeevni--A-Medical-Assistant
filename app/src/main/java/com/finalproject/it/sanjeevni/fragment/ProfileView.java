@@ -106,7 +106,7 @@ public class ProfileView extends BaseActivity {
                 if(documentSnapshot.exists()) {
                     nametext = documentSnapshot.getString("firstName");
                     emailtext = documentSnapshot.getString("emailID");
-                    phonetext = documentSnapshot.getString("phoneNo");
+                    phonetext = documentSnapshot.get("phoneNo").toString();
                     gendertext = documentSnapshot.getString("gender");
                     state = documentSnapshot.getString("state");
                     city = documentSnapshot.getString("city");

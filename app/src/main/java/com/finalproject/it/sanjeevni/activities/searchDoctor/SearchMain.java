@@ -143,7 +143,7 @@ public class SearchMain extends BaseActivity {
                                             }
                                         } else {
                                             list.setAdapter(null);
-                                            Toast.makeText(SearchMain.this, "Sorry, we don't have any registered doctors in thiis area!", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(SearchMain.this, "Sorry, we don't have any registered doctors in this area!", Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 }
