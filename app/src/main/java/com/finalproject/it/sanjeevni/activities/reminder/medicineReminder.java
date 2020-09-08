@@ -2,6 +2,7 @@ package com.finalproject.it.sanjeevni.activities.reminder;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,11 @@ import com.allyants.notifyme.NotifyMe;
 import com.finalproject.it.sanjeevni.activities.WelcomeActivity;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 
@@ -74,8 +80,11 @@ public class medicineReminder extends  AppCompatActivity implements DatePickerDi
                 AlarmManager am = (AlarmManager) medicineReminder.this.getSystemService(medicineReminder.this.ALARM_SERVICE);
                 am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
                 Toast.makeText(medicineReminder.this, "Medicine Reminder Will Repeat Daily!", Toast.LENGTH_SHORT).show();
+
             }
         });
+
+
 
 
 
