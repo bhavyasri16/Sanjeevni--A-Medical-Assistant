@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"
+/>
 
     <application
         android:name=".app.AppController"
@@ -32,6 +34,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.WelcomeActivity" />
         </activity>
+        <receiver android:name="com.allyants.notifyme.NotificationPublisher"/>
+
+        <receiver android:name="com.allyants.notifyme.BootNotifyMe">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.HOME"/>
+            </intent-filter>
+        </receiver>
+
 
         <receiver android:name=".activities.reminder.AlarmReceiver" />
 
