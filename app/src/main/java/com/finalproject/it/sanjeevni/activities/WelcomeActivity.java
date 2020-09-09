@@ -66,10 +66,8 @@ public class WelcomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Making notification bar transparent
-        /*if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }*/
+        setContentView(R.layout.activity_welcome);
+
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true)
@@ -78,7 +76,7 @@ public class WelcomeActivity extends BaseActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
-        setContentView(R.layout.activity_welcome);
+
         fstore=FirebaseFirestore.getInstance();
         if(mAuth.getCurrentUser()!=null) {
             fstore.collection("User_Type").document("admins").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

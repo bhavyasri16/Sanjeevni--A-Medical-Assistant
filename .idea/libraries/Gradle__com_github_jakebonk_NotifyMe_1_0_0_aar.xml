@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.jakebonk:NotifyMe:1.0.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/86ae80ce0e83aea9baa38839bb6dcb49/jetified-NotifyMe-1.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/86ae80ce0e83aea9baa38839bb6dcb49/jetified-NotifyMe-1.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eedb2629288710ad2aee722ade53e57c/jetified-NotifyMe-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eedb2629288710ad2aee722ade53e57c/jetified-NotifyMe-1.0.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
